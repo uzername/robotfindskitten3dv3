@@ -1,0 +1,11 @@
+Material SimplePlainMaterial : Common/MatDefs/Light/Lighting.j3md {
+    MaterialParameters {
+        UseMaterialColors : true
+        Specular : 1.0 1.0 1.0 1.0
+        Diffuse : 1.0 1.0 1.0 1.0
+        Shininess : 1.0
+    }
+    
+    AdditionalRenderState {
+    }
+}
