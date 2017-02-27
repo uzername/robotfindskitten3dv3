@@ -28,16 +28,18 @@ import com.jme3.scene.Node;
  * @author normenhansen and jovan
  */
 public class Main extends SimpleApplication implements AnalogListener, ActionListener{
+    /*
     private DirectionalLight sun;
     private AmbientLight al;
     private Geometry player2;
     private CameraNode myCam;
     private Node playerNode;
+    */
     //direction of camera
-    Vector3f direction = new Vector3f();
-    
+    /*
+    Vector3f direction = new Vector3f();    
     boolean rotate = true;
-    
+    */
     public static void main(String[] args) {
         Main app = new Main();
         app.start();
@@ -66,39 +68,39 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
     private void setCamera() {
         //flyCam.setMoveSpeed(10);
         flyCam.setEnabled(false);
-        myCam = new CameraNode("CamNode", cam);
-        myCam.setControlDir(ControlDirection.SpatialToCamera);
-        playerNode.attachChild(myCam);
-        myCam.setLocalTranslation(new Vector3f(-7, 5, 0));
+        AllGameResources.myCam = new CameraNode("CamNode", cam);
+        AllGameResources.myCam.setControlDir(ControlDirection.SpatialToCamera);
+        AllGameResources.playerNode.attachChild(AllGameResources.myCam);
+        AllGameResources.myCam.setLocalTranslation(new Vector3f(-7, 5, 0));
     
-        myCam.lookAt(playerNode.getLocalTranslation(), Vector3f.UNIT_Y);
+        AllGameResources.myCam.lookAt(AllGameResources.playerNode.getLocalTranslation(), Vector3f.UNIT_Y);
         
         inputManager.setCursorVisible(false);
     }
     private void basicSetLight() {
-        sun = new DirectionalLight();
-        sun.setDirection(new Vector3f(-0.1f, -0.7f, -1.0f));
-        rootNode.addLight(sun);
-        al = new AmbientLight();
-        al.setColor(ColorRGBA.White.mult(0.5f));
-        rootNode.addLight(al);
+        AllGameResources.sun = new DirectionalLight();
+        AllGameResources.sun.setDirection(new Vector3f(-0.1f, -0.7f, -1.0f));
+        rootNode.addLight(AllGameResources.sun);
+        AllGameResources.al = new AmbientLight();
+        AllGameResources.al.setColor(ColorRGBA.White.mult(0.5f));
+        rootNode.addLight(AllGameResources.al);
     }
     
     private void setScene() {
         Box b = new Box(0.5f, 0.5f, 0.5f);
         
-        player2 = new Geometry("green cube", b);
-        player2.setLocalTranslation(0.0f, 0.5f, 0.0f);
+        AllGameResources.player2 = new Geometry("green cube", b);
+        AllGameResources.player2.setLocalTranslation(0.0f, 0.5f, 0.0f);
         
         Material mat2 = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
         mat2.setBoolean("UseMaterialColors",true);
         mat2.setColor("Diffuse",  ColorRGBA.Green);
         mat2.setColor("Ambient",  ColorRGBA.Green);
         mat2.setColor("Specular", ColorRGBA.Blue); 
-        player2.setMaterial(mat2);
-        playerNode = new Node("player");
-        playerNode.attachChild(player2);
-        rootNode.attachChild(playerNode);
+        AllGameResources.player2.setMaterial(mat2);
+        AllGameResources.playerNode = new Node("player");
+        AllGameResources.playerNode.attachChild(AllGameResources.player2);
+        rootNode.attachChild(AllGameResources.playerNode);
         
         Quad plain = new Quad(processing.AllParams.allFieldDim1.floatValue(), processing.AllParams.allFieldDim2.floatValue());
         plain.scaleTextureCoordinates(new Vector2f(processing.AllParams.allFieldDim1.floatValue()/2.0f, processing.AllParams.allFieldDim2.floatValue()/2.0f));
@@ -145,59 +147,59 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
         //get the camera direction. It's OK to normalize it. 
         //Get the projection of this vector onto the base plane of scene (xOy for this scene). Normalize result
         //move along this vector
-        direction.set(cam.getDirection()).normalizeLocal();
+        AllGameResources.direction.set(cam.getDirection()).normalizeLocal();
         Vector3f planeNormal = new Vector3f(0, 1, 0);
         if (name.equals("moveForward")) {
             //direction.multLocal(5 * tpf);
             //playerNode.move(direction);
             // https://www.physicsforums.com/threads/projecting-a-vector-onto-a-plane.496184/
-            Vector3f camProjectionVector = new Vector3f(direction.subtract(planeNormal.mult(direction.mult(planeNormal))));
+            Vector3f camProjectionVector = new Vector3f(AllGameResources.direction.subtract(planeNormal.mult(AllGameResources.direction.mult(planeNormal))));
             camProjectionVector.normalizeLocal();
             camProjectionVector.multLocal(5 * tpf);
-            direction.set(camProjectionVector);
-            playerNode.move(direction);
+            AllGameResources.direction.set(camProjectionVector);
+            AllGameResources.playerNode.move(AllGameResources.direction);
         }
         if (name.equals("moveBackward")) {
             //direction.multLocal(-5 * tpf);
             //playerNode.move(direction);
-            Vector3f camProjectionVector = new Vector3f(direction.subtract(planeNormal.mult(direction.mult(planeNormal))));
+            Vector3f camProjectionVector = new Vector3f(AllGameResources.direction.subtract(planeNormal.mult(AllGameResources.direction.mult(planeNormal))));
             camProjectionVector.normalizeLocal();
             camProjectionVector.multLocal(-5 * tpf);
-            direction.set(camProjectionVector);
-            playerNode.move(direction);
+            AllGameResources.direction.set(camProjectionVector);
+            AllGameResources.playerNode.move(AllGameResources.direction);
         }
         if (name.equals("moveRight")) {
             //direction.crossLocal(Vector3f.UNIT_X).multLocal(5 * tpf);
             //playerNode.move(direction);
-            Vector3f camProjectionVector = new Vector3f(direction.subtract(planeNormal.mult(direction.mult(planeNormal))));
+            Vector3f camProjectionVector = new Vector3f(AllGameResources.direction.subtract(planeNormal.mult(AllGameResources.direction.mult(planeNormal))));
             camProjectionVector.normalizeLocal();
             camProjectionVector.crossLocal(Vector3f.UNIT_Y).multLocal(5 * tpf);
-            direction.set(camProjectionVector);
-            playerNode.move(direction);
+            AllGameResources.direction.set(camProjectionVector);
+            AllGameResources.playerNode.move(AllGameResources.direction);
         }
         if (name.equals("moveLeft")) {
             //direction.crossLocal(Vector3f.UNIT_X).multLocal(-5 * tpf);
             //playerNode.move(direction);
-            Vector3f camProjectionVector = new Vector3f(direction.subtract(planeNormal.mult(direction.mult(planeNormal))));
+            Vector3f camProjectionVector = new Vector3f(AllGameResources.direction.subtract(planeNormal.mult(AllGameResources.direction.mult(planeNormal))));
             camProjectionVector.normalizeLocal();
             camProjectionVector.crossLocal(Vector3f.UNIT_Y).multLocal(-5 * tpf);
-            direction.set(camProjectionVector);
-            playerNode.move(direction);
+            AllGameResources.direction.set(camProjectionVector);
+            AllGameResources.playerNode.move(AllGameResources.direction);
         }
-        if (name.equals("rotateRight") && rotate) {
-            playerNode.rotate(0, 0.5f*value, 0);
+        if (name.equals("rotateRight") && AllGameResources.rotate) {
+            AllGameResources.playerNode.rotate(0, 0.5f*value, 0);
         }
-        if (name.equals("rotateLeft") && rotate) {
-            playerNode.rotate(0, -0.5f*value, 0);
+        if (name.equals("rotateLeft") && AllGameResources.rotate) {
+            AllGameResources.playerNode.rotate(0, -0.5f*value, 0);
         }
-        if (name.equals("rotateUp") && rotate) {
+        if (name.equals("rotateUp") && AllGameResources.rotate) {
             // Do not rotate camera node here, instead rotate camera node by value along the axis, 
             // which goes through playernode
-            myCam.rotate(0.5f*value, 0, 0);
+            AllGameResources.myCam.rotate(0.5f*value, 0, 0);
         }
-        if (name.equals("rotateDown") && rotate) {
+        if (name.equals("rotateDown") && AllGameResources.rotate) {
             //playerNode.rotate(-0.5f*value, 0, 0);
-            myCam.rotate(-0.5f*value, 0, 0);
+            AllGameResources.myCam.rotate(-0.5f*value, 0, 0);
         }
     }
 
