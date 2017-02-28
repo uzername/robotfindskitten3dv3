@@ -16,8 +16,7 @@ public class AllGameResources {
     public static Node playerNode;
     public static CameraNode myCam;
     public static Geometry player2;
-    public static AmbientLight al;
-    public static DirectionalLight sun;
+    
     public static Vector3f direction = new Vector3f();
     public static boolean rotate = true;
 }

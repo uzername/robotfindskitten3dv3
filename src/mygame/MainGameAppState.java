@@ -13,6 +13,7 @@ import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
+import com.jme3.light.Light;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector2f;
@@ -37,6 +38,9 @@ public class MainGameAppState extends AbstractAppState implements AnalogListener
     private AssetManager assetManager;
     private Node rootNode;
     
+    public AmbientLight al;
+    public DirectionalLight sun;
+// Note that update is only called while the state is both attached and enabled.    
 @Override
 public void update(float tpf) {
     app.getInputManager().setCursorVisible(false);
@@ -51,12 +55,49 @@ public void initialize(AppStateManager stateManager, Application app) {
     this.app = (SimpleApplication) app;
     this.rootNode = this.app.getRootNode();
     this.assetManager = this.app.getAssetManager();
+    /*
     this.basicSetLight();
     this.setScene();
     this.setCamera();
     this.registerInput();
+    */
 } 
- 
+@Override
+public void setEnabled(boolean enabled) {
+    // Pause and unpause
+    super.setEnabled(enabled);
+    if(enabled){
+        // init stuff that is in use while this state is RUNNING
+        //System.out.println("++++++Enabling scene++++++");
+        this.basicSetLight();
+        this.setScene();
+        this.setCamera();
+        this.registerInput();
+
+      } else {
+        //System.out.println("------Shuting down scene------");
+        // take away everything not needed while this state is PAUSED
+        /*
+        for (Light light : rootNode.getLocalLightList() ) {
+            System.out.println(light.getType());
+            rootNode.removeLight(light);
+        }
+        */
+        rootNode.removeLight(al); rootNode.removeLight(sun);
+        
+        app.getInputManager().deleteMapping("moveForward");
+        app.getInputManager().deleteMapping("moveBackward");
+        app.getInputManager().deleteMapping("moveLeft");
+        app.getInputManager().deleteMapping("moveRight");
+        app.getInputManager().deleteMapping("rotateRight");
+        app.getInputManager().deleteMapping("rotateLeft");
+        app.getInputManager().deleteMapping("rotateUp");
+        app.getInputManager().deleteMapping("rotateDown");
+        
+        rootNode.detachAllChildren();
+      }
+}
+
  private void setCamera() {
         //flyCam.setMoveSpeed(10);
         app.getFlyByCamera().setEnabled(false);
@@ -70,12 +111,12 @@ public void initialize(AppStateManager stateManager, Application app) {
         app.getInputManager().setCursorVisible(false);
     }
     private void basicSetLight() {
-        AllGameResources.sun = new DirectionalLight();
-        AllGameResources.sun.setDirection(new Vector3f(-0.1f, -0.7f, -1.0f));
-        rootNode.addLight(AllGameResources.sun);
-        AllGameResources.al = new AmbientLight();
-        AllGameResources.al.setColor(ColorRGBA.White.mult(0.5f));
-        rootNode.addLight(AllGameResources.al);
+        this.sun = new DirectionalLight();
+        this.sun.setDirection(new Vector3f(-0.1f, -0.7f, -1.0f));
+        rootNode.addLight(this.sun);
+        this.al = new AmbientLight();
+        this.al.setColor(ColorRGBA.White.mult(0.5f));
+        rootNode.addLight(this.al);
     }
     
     private void setScene() {
@@ -183,6 +224,7 @@ public void initialize(AppStateManager stateManager, Application app) {
     }
     
     public void registerInput() {
+        
     app.getInputManager().addMapping("moveForward", new KeyTrigger(KeyInput.KEY_UP), new KeyTrigger(KeyInput.KEY_W));
     app.getInputManager().addMapping("moveBackward", new KeyTrigger(KeyInput.KEY_DOWN), new KeyTrigger(KeyInput.KEY_S));
     app.getInputManager().addMapping("moveRight", new KeyTrigger(KeyInput.KEY_RIGHT), new KeyTrigger(KeyInput.KEY_D));
@@ -198,4 +240,6 @@ public void initialize(AppStateManager stateManager, Application app) {
     app.getInputManager().addListener(this, "rotateUp", "rotateDown");
     
   }
+    
+    
 }
