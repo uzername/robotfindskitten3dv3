@@ -24,6 +24,9 @@ import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.scene.Node;
+import de.lessvoid.nifty.Nifty;
+import de.lessvoid.nifty.screen.Screen;
+import de.lessvoid.nifty.screen.ScreenController;
 /**
  * test
  * @author normenhansen and jovan
@@ -56,12 +59,14 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
         registerInput();
         state = new MainGameAppState();
         state.initialize(stateManager, this);
+        
         state2 = new MenuGameAppState();
         
-        stateManager.attach(state);
+        //stateManager.attach(state);
         stateManager.attach(state2);
         state.setEnabled(true);
         state2.setEnabled(false);
+        state.justInitialized = false;
     }
 
     @Override
@@ -91,8 +96,8 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
             System.out.println("State Changed");
         }
     }
-    
-   
+
+
     
    
 

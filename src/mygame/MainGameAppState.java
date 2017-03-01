@@ -37,9 +37,12 @@ public class MainGameAppState extends AbstractAppState implements AnalogListener
     private SimpleApplication app;
     private AssetManager assetManager;
     private Node rootNode;
+    private Node shadowNode;
     
     public AmbientLight al;
     public DirectionalLight sun;
+    
+    public Boolean justInitialized;
 // Note that update is only called while the state is both attached and enabled.    
 @Override
 public void update(float tpf) {
@@ -55,12 +58,16 @@ public void initialize(AppStateManager stateManager, Application app) {
     this.app = (SimpleApplication) app;
     this.rootNode = this.app.getRootNode();
     this.assetManager = this.app.getAssetManager();
-    /*
+    
+    this.shadowNode = new Node("ShadowNode");
+    this.rootNode.attachChild(shadowNode);
+    
+    System.out.println("Initialize");
     this.basicSetLight();
     this.setScene();
     this.setCamera();
     this.registerInput();
-    */
+    this.justInitialized = true;
 } 
 @Override
 public void setEnabled(boolean enabled) {
@@ -69,20 +76,19 @@ public void setEnabled(boolean enabled) {
     if(enabled){
         // init stuff that is in use while this state is RUNNING
         //System.out.println("++++++Enabling scene++++++");
-        this.basicSetLight();
-        this.setScene();
-        this.setCamera();
-        this.registerInput();
-
+        if (justInitialized == false) {
+            System.out.println("Attaching shadowNode");
+            this.registerInput();
+            this.rootNode.attachChild(shadowNode);
+            System.out.println("Attaching sun");
+            rootNode.addLight(this.sun); rootNode.addLight(this.al);
+        } else {
+            
+        }
       } else {
         //System.out.println("------Shuting down scene------");
         // take away everything not needed while this state is PAUSED
-        /*
-        for (Light light : rootNode.getLocalLightList() ) {
-            System.out.println(light.getType());
-            rootNode.removeLight(light);
-        }
-        */
+        justInitialized = false;        
         rootNode.removeLight(al); rootNode.removeLight(sun);
         
         app.getInputManager().deleteMapping("moveForward");
@@ -94,7 +100,8 @@ public void setEnabled(boolean enabled) {
         app.getInputManager().deleteMapping("rotateUp");
         app.getInputManager().deleteMapping("rotateDown");
         
-        rootNode.detachAllChildren();
+        //rootNode.detachAllChildren();
+        rootNode.detachChild(shadowNode);
       }
 }
 
@@ -133,7 +140,7 @@ public void setEnabled(boolean enabled) {
         AllGameResources.player2.setMaterial(mat2);
         AllGameResources.playerNode = new Node("player");
         AllGameResources.playerNode.attachChild(AllGameResources.player2);
-        rootNode.attachChild(AllGameResources.playerNode);
+        shadowNode.attachChild(AllGameResources.playerNode);
         
         Quad plain = new Quad(processing.AllParams.allFieldDim1.floatValue(), processing.AllParams.allFieldDim2.floatValue());
         plain.scaleTextureCoordinates(new Vector2f(processing.AllParams.allFieldDim1.floatValue()/2.0f, processing.AllParams.allFieldDim2.floatValue()/2.0f));
@@ -147,7 +154,7 @@ public void setEnabled(boolean enabled) {
         floor.setMaterial(matFloor);
         floor.rotate(-new Double(Math.PI/2.0).floatValue(), 0.0f, 0.0f);
         
-        rootNode.attachChild(floor);
+        shadowNode.attachChild(floor);
         
         placeObjects();
     }
@@ -155,7 +162,7 @@ public void setEnabled(boolean enabled) {
        RenderHelpers.assetManager = assetManager;
        Node addedNode = RenderHelpers.PreparedModel();
        addedNode.setLocalTranslation(processing.AllParams.allFieldDim1.floatValue()/2.0f, 0.0f, -processing.AllParams.allFieldDim2.floatValue()/2.0f);
-       rootNode.attachChild(addedNode);
+       shadowNode.attachChild(addedNode);
    }
 
         public void onAnalog(String name, float value, float tpf) {
@@ -224,7 +231,7 @@ public void setEnabled(boolean enabled) {
     }
     
     public void registerInput() {
-        
+        System.out.println("Registering Input");
     app.getInputManager().addMapping("moveForward", new KeyTrigger(KeyInput.KEY_UP), new KeyTrigger(KeyInput.KEY_W));
     app.getInputManager().addMapping("moveBackward", new KeyTrigger(KeyInput.KEY_DOWN), new KeyTrigger(KeyInput.KEY_S));
     app.getInputManager().addMapping("moveRight", new KeyTrigger(KeyInput.KEY_RIGHT), new KeyTrigger(KeyInput.KEY_D));
