@@ -27,6 +27,9 @@ import com.jme3.scene.Node;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
+
+import com.simsilica.lemur.GuiGlobals;
+import com.simsilica.lemur.style.BaseStyles;
 /**
  * test
  * @author normenhansen and jovan
@@ -60,10 +63,18 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
         state = new MainGameAppState();
         state.initialize(stateManager, this);
         
-        state2 = new MenuGameAppState();
+        
+        
+        GuiGlobals.initialize(this);
+ 
+        GuiGlobals globals = GuiGlobals.getInstance();
+        BaseStyles.loadGlassStyle();
+        globals.getStyles().setDefaultStyle("glass");
         
         //stateManager.attach(state);
-        stateManager.attach(state2);
+        state2 = new MenuGameAppState();
+        state2.initialize(stateManager, this);
+        //stateManager.attach(state2);
         state.setEnabled(true);
         state2.setEnabled(false);
         state.justInitialized = false;
@@ -72,7 +83,12 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
     @Override
     public void simpleUpdate(float tpf) {
         //TODO: add update code
-        inputManager.setCursorVisible(false);
+        if (state.isEnabled()) {
+        inputManager.setCursorVisible(false); 
+        } 
+        if (state2.isEnabled()) {
+        inputManager.setCursorVisible(true); 
+        } 
     }
 
     @Override
