@@ -13,6 +13,7 @@ import com.jme3.scene.shape.Box;
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
 import com.jme3.material.RenderState;
+import com.jme3.math.Quaternion;
 import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.scene.shape.Quad;
 import com.jme3.texture.Image;
@@ -64,12 +65,19 @@ public class RenderHelpers {
         g.fillRect(0, 0, 99, 99);
         g.setComposite(AlphaComposite.Src);
         g.setColor(java.awt.Color.RED);
-        g.setFont(new java.awt.Font(/*g.getFont().getName()*/java.awt.Font.MONOSPACED, java.awt.Font.BOLD, 80)); 
+        g.setFont(new java.awt.Font(java.awt.Font.MONOSPACED, java.awt.Font.BOLD, 80)); 
         g.drawString("A", 25,65);
         Image load = loader.load(bufferedImage, true);
         Texture texture = new Texture2D(load);
          Material matText = (assetManager.loadMaterial("Materials/plainMaterial.j3m"));
+         //Material matText = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
          matText.setTexture("DiffuseMap", texture);
+         matText.setTexture("SpecularMap", texture);
+         //matText.setTexture("NormalMap", texture);
+         matText.setColor("Ambient", ColorRGBA.Red);
+         //matText.setColor("Specular", ColorRGBA.Red);
+         matText.setColor("Diffuse", ColorRGBA.Red);
+         
          matText.getAdditionalRenderState().setBlendMode(RenderState.BlendMode.Alpha);
          matText.setTransparent(true);
          Quad plain = new Quad(2, 4);
@@ -77,9 +85,36 @@ public class RenderHelpers {
         planeLetterGeometry.setQueueBucket(Bucket.Transparent);
         planeLetterGeometry.setMaterial(matText);
         //planeLetterGeometry.setMaterial(basemat);
+        
+        Geometry planeLetterGeometry2 = new Geometry("letterGeometry2",plain);
+        planeLetterGeometry2.setMaterial(matText);
+        
+        Geometry planeLetterGeometry3 = new Geometry("letterGeometry3",plain);
+        planeLetterGeometry3.setMaterial(matText);
+        
+        Geometry planeLetterGeometry4 = new Geometry("letterGeometry4",plain);
+        planeLetterGeometry4.setMaterial(matText);
+        
         Node helloText = new Node("DrawText");
         helloText.attachChild(planeLetterGeometry);
-        planeLetterGeometry.setLocalTranslation(-1, 0, 0.95f);
+        helloText.attachChild(planeLetterGeometry2);
+        helloText.attachChild(planeLetterGeometry3);
+        helloText.attachChild(planeLetterGeometry4);
+        
+        planeLetterGeometry.setLocalTranslation(-1, 0.05f, 0.95f);
+        
+        planeLetterGeometry2.setLocalTranslation(-1, 0.05f, -0.95f);
+        float[] ro2={0,(float)(-Math.PI/2.0),0};
+        planeLetterGeometry2.rotate(new Quaternion(ro2));
+        
+        planeLetterGeometry3.setLocalTranslation(1, 0.05f, -0.95f);
+        float[] ro3={0,(float)(Math.PI),0};
+        planeLetterGeometry3.rotate(new Quaternion(ro3));
+        
+        planeLetterGeometry4.setLocalTranslation(1, 0.05f, 0.95f);
+        float[] ro4={0,(float)(Math.PI/2.0f),0};
+        planeLetterGeometry4.rotate(new Quaternion(ro4));
+        
         nodeReturn.attachChild(helloText);
         //now drawing the main column
         Box column = new Box(0.65f, 2.0f, 0.65f);

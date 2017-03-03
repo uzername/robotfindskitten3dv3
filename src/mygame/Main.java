@@ -70,7 +70,9 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
         state = new MainGameAppState();
         state.initialize(stateManager, this);
         
-        
+        //state is for main game
+        //state2 is for main menu
+        //state3 is for options
         
         GuiGlobals.initialize(this);
  
@@ -127,7 +129,16 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
             this.setDisplayStatView(FPSdisplayed);
         }
     }
-
+    
+    public void switchStateToMainGame() {
+        
+            Boolean mainStateActivity = state.isEnabled();
+            Boolean menuStateActivity = state2.isEnabled();
+            state.setEnabled(!(mainStateActivity.booleanValue()) );
+            state2.setEnabled(!(menuStateActivity.booleanValue()) );
+            System.out.println("State Changed");
+        
+    }
 
     
    

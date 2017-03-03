@@ -34,6 +34,8 @@ public class MenuGameAppState extends AbstractAppState {
     private ViewPort guiViewPort;
     
     private Container myWindow;
+    private Button continueBtn;
+    private boolean continueBtnAdded;
     
     public Boolean justInitialized;
     
@@ -65,6 +67,7 @@ public class MenuGameAppState extends AbstractAppState {
                 System.out.println("The world is yours.");
             }
         });
+        
         Button optionsBtn = myWindow.addChild(new Button("Options"));
         optionsBtn.addClickCommands(new Command<Button>() {
             @Override
@@ -90,6 +93,7 @@ public class MenuGameAppState extends AbstractAppState {
         int leftLocation = Math.round(leftPercentPosition*winResolutionHeight);
         myWindow.setLocalTranslation(leftLocation, topLocation, 0);
         
+        this.continueBtnAdded = false;
         this.justInitialized = true;
     }
     @Override
@@ -97,6 +101,13 @@ public class MenuGameAppState extends AbstractAppState {
         // Pause and unpause
         super.setEnabled(enabled);
         if(enabled){ 
+            if (justInitialized==false) {
+                //append continue button, but only once.
+                if (continueBtnAdded == false) {
+                    continueBtn = myWindow.addChild(new ActionButton(new CallMethodAction("Continue Game", app, "switchStateToMainGame")));
+                    continueBtnAdded = true;
+                }
+            }
             justInitialized = false;    
             // init stuff that is in use while this state is RUNNING
             System.out.println("Attach menu");
