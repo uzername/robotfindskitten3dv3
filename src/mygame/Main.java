@@ -49,6 +49,8 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
     */
      public MainGameAppState state;
      public MenuGameAppState state2;
+     public Boolean FPSdisplayed;
+     
     public static void main(String[] args) {
         Main app = new Main();
         app.start();
@@ -58,6 +60,11 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
     public void simpleInitApp() {
         //one cannot simply exit the app using the esc key. Instead you should display some sort of menu...
         //do not permit the user to exit app using alt+f4
+        //switch FPS display by pressing F1. should work in any app state
+        FPSdisplayed=false;
+        this.setDisplayFps(FPSdisplayed);
+        this.setDisplayStatView(FPSdisplayed);
+        
         inputManager.deleteMapping(INPUT_MAPPING_EXIT);
         registerInput();
         state = new MainGameAppState();
@@ -97,7 +104,10 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
     }
     public void registerInput() { 
         inputManager.addMapping("switchMenuStates", new KeyTrigger(KeyInput.KEY_ESCAPE));
+        inputManager.addMapping("switchFPSDisplay", new KeyTrigger(KeyInput.KEY_F1));
+        
         inputManager.addListener(this, "switchMenuStates");
+        inputManager.addListener(this, "switchFPSDisplay");
     }
     public void onAnalog(String name, float value, float tpf) {
         
@@ -110,6 +120,11 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
             state.setEnabled(!(mainStateActivity.booleanValue()) );
             state2.setEnabled(!(menuStateActivity.booleanValue()) );
             System.out.println("State Changed");
+        }
+        if (name.equals("switchFPSDisplay")&&isPressed) {
+            FPSdisplayed = !(FPSdisplayed);
+            this.setDisplayFps(FPSdisplayed);
+            this.setDisplayStatView(FPSdisplayed);
         }
     }
 
