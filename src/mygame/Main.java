@@ -30,6 +30,8 @@ import de.lessvoid.nifty.screen.ScreenController;
 
 import com.simsilica.lemur.GuiGlobals;
 import com.simsilica.lemur.style.BaseStyles;
+import processing.AllParams;
+import processing.NewClass;
 /**
  * test
  * @author normenhansen and jovan
@@ -47,6 +49,7 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
     Vector3f direction = new Vector3f();    
     boolean rotate = true;
     */
+     public NewClass mainGameAlgorithmRoutine;
      public MainGameAppState state;
      public MenuGameAppState state2;
      public Boolean FPSdisplayed;
@@ -58,9 +61,19 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
 
     @Override
     public void simpleInitApp() {
+        //System.out.println("Working Directory = " + System.getProperty("user.dir"));
+        
         //one cannot simply exit the app using the esc key. Instead you should display some sort of menu...
         //do not permit the user to exit app using alt+f4
         //switch FPS display by pressing F1. should work in any app state
+        
+        //initialize and precalculate all the resources here
+        mainGameAlgorithmRoutine = new NewClass();
+        mainGameAlgorithmRoutine.initNKIlistFromFile("");
+        mainGameAlgorithmRoutine.fillNKIField(AllParams.totalNumberOfItems);
+        
+        System.out.println("GameLogicArray="+AllParams.GameLogicArray.toString());
+        
         FPSdisplayed=false;
         this.setDisplayFps(FPSdisplayed);
         this.setDisplayStatView(FPSdisplayed);

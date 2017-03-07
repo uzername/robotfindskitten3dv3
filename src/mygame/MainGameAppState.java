@@ -25,6 +25,7 @@ import com.jme3.scene.control.CameraControl;
 import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Quad;
 import com.jme3.texture.Texture;
+import processing.AllParams;
 
 /**
  * main game app state. see JMonkeyEngine Beginners Guide 3
@@ -127,11 +128,10 @@ public void setEnabled(boolean enabled) {
     }
     
     private void setScene() {
-        Box b = new Box(0.5f, 0.5f, 0.5f);
-        
+        //append player
+        Box b = new Box(0.5f, 0.5f, 0.5f);       
         AllGameResources.player2 = new Geometry("green cube", b);
-        AllGameResources.player2.setLocalTranslation(0.0f, 0.5f, 0.0f);
-        
+        AllGameResources.player2.setLocalTranslation(0.0f, 0.5f, 0.0f);        
         Material mat2 = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
         mat2.setBoolean("UseMaterialColors",true);
         mat2.setColor("Diffuse",  ColorRGBA.Green);
@@ -142,6 +142,7 @@ public void setEnabled(boolean enabled) {
         AllGameResources.playerNode.attachChild(AllGameResources.player2);
         shadowNode.attachChild(AllGameResources.playerNode);
         
+        //append floor
         Quad plain = new Quad(processing.AllParams.allFieldDim1.floatValue(), processing.AllParams.allFieldDim2.floatValue());
         plain.scaleTextureCoordinates(new Vector2f(processing.AllParams.allFieldDim1.floatValue()/2.0f, processing.AllParams.allFieldDim2.floatValue()/2.0f));
         Geometry floor = new Geometry("floor", plain);
@@ -149,20 +150,40 @@ public void setEnabled(boolean enabled) {
         //Material matFloor = new Material(assetManager, "Common/MatDefs/Misc/SimpleTextured.j3md");
         Texture floortexture = assetManager.loadTexture("Textures/cul_door.jpg");
         floortexture.setWrap(Texture.WrapMode.Repeat);
-        matFloor.setTexture("DiffuseMap", floortexture);
-        
+        matFloor.setTexture("DiffuseMap", floortexture);        
         floor.setMaterial(matFloor);
-        floor.rotate(-new Double(Math.PI/2.0).floatValue(), 0.0f, 0.0f);
-        
+        floor.rotate(-new Double(Math.PI/2.0).floatValue(), 0.0f, 0.0f);        
         shadowNode.attachChild(floor);
         
         placeObjects();
     }
    public void placeObjects() {
        RenderHelpers.assetManager = assetManager;
-       Node addedNode = RenderHelpers.PreparedModel();
-       addedNode.setLocalTranslation(processing.AllParams.allFieldDim1.floatValue()/2.0f, 0.0f, -processing.AllParams.allFieldDim2.floatValue()/2.0f);
-       shadowNode.attachChild(addedNode);
+       for (processing.GameFieldItem object : AllParams.GameLogicArray) {  
+        Node addedNode = RenderHelpers.PreparedModel();
+        /*
+        addedNode.setLocalTranslation(processing.AllParams.allFieldDim1.floatValue()/2.0f, 0.0f, -processing.AllParams.allFieldDim2.floatValue()/2.0f);
+        shadowNode.attachChild(addedNode);
+        */
+        addedNode.setLocalTranslation(object.fieldXPosition.floatValue(), 0.0f, -object.fieldYPosition.floatValue());
+        shadowNode.attachChild(addedNode);
+       }
+       
+        Node addedNode2 = RenderHelpers.PreparedModel();
+        addedNode2.setLocalTranslation(0.0f, 0.0f, -AllParams.allFieldDim2.floatValue());
+        shadowNode.attachChild(addedNode2);
+       
+        Node addedNode3 = RenderHelpers.PreparedModel();
+        addedNode3.setLocalTranslation(AllParams.allFieldDim1.floatValue(), 0.0f, -AllParams.allFieldDim2.floatValue());
+        shadowNode.attachChild(addedNode3);
+        
+        Node addedNode4 = RenderHelpers.PreparedModel();
+        addedNode4.setLocalTranslation(1.0f, 0.0f, -1.0f);
+        shadowNode.attachChild(addedNode4);
+        
+        Node addedNode5 = RenderHelpers.PreparedModel();
+        addedNode5.setLocalTranslation(AllParams.allFieldDim1.floatValue(), 0.0f, -0.0f);
+        shadowNode.attachChild(addedNode5);
    }
 
         public void onAnalog(String name, float value, float tpf) {

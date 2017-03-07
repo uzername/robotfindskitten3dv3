@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+contains non-kitten items description for robotfindskitten
+see http://www.crummy.com/software/robotfindskitten/
+-->
+<root>
+<item>&quot;I pity the fool who mistakes me for kitten!&quot;, sez Mr. T.</item>
+<item>That&apos;s just an old tin can.</item>
+<item>It&apos;s an altar to the horse god.</item>
+<item>A box of dancing mechanical pencils. They dance! They sing!</item>
+<item>It&apos;s an old Duke Ellington record.</item>
+<item>A box of fumigation pellets.</item>
+<item>A digital clock. It&apos;s stuck at 2:17 PM.</item>
+<item>That&apos;s just a charred human corpse.</item>
+<item>I don&apos;t know what that is, but it&apos;s not kitten.</item>
+<item>An empty shopping bag. Paper or plastic?</item>
+<item>Could it be... a big ugly bowling trophy?</item>
+<item>A coat hanger hovers in thin air. Odd.</item>
+<item>Not kitten, just a packet of Kool-Aid(tm).</item>
+<item>A freshly-baked pumpkin pie.</item>
+<item>A lone, forgotten comma, sits here, sobbing.</item>
+<item>ONE HUNDRED THOUSAND CARPET FIBERS!!!!!</item>
+<item>It&apos;s Richard Nixon&apos;s nose!</item>
+<item>It&apos;s Lucy Ricardo. &quot;Aaaah, Ricky!&quot;, she says.</item>
+<item>You stumble upon Bill Gates&apos; stand-up act.</item>
+<item>Just an autographed copy of the Kama Sutra.</item>
+<item>It&apos;s the Will Rogers Highway. Who was Will Rogers, anyway?</item>
+<item>It&apos;s another robot, more advanced in design than you but strangely immobile.</item>
+<item>Leonard Richardson is here, asking people to lick him.</item>
+<item>It&apos;s a stupid mask, fashioned after a beagle.</item>
+<item>Your State Farm Insurance(tm) representative!</item>
+<item>It&apos;s the local draft board.</item>
+<item>Seven 1/4&quot; screws and a piece of plastic.</item>
+<item>An 80286 machine.</item>
+<item>One of those stupid &quot;Homes of the Stars&quot; maps.</item>
+<item>A signpost saying &quot;TO KITTEN&quot;. It points in no particular direction.</item>
+<item>A hammock stretched between a tree and a volleyball pole.</item>
+<item>A Texas Instruments of Destruction calculator.</item>
+<item>It&apos;s a dark, amphorous blob of matter.</item>
+<item>Just a pincushion.</item>
+<item>It&apos;s a mighty zombie talking about some love and prosperity.</item>
+<item>&quot;Dear robot, you may have already won our 10 MILLION DOLLAR prize...&quot;</item>
+<item>It&apos;s just an object.</item>
+<item>A mere collection of pixels.</item>
+<item>A badly dented high-hat cymbal lies on its side here.</item>
+<item>A marijuana brownie.</item>
+<item>A plush Chewbacca.</item>
+<item>Daily hunger conditioner from Australasia</item>
+<item>Just some stuff.</item>
+<item>Why are you touching this when you should be finding kitten?</item>
+<item>A glorious fan of peacock feathers.</item>
+<item>It&apos;s some compromising photos of Babar the Elephant.</item>
+<item>A copy of the Weekly World News. Watch out for the chambered nautilus!</item>
+<item>It&apos;s the proverbial wet blanket.</item>
+<item>A &quot;Get Out of Jail Free&quot; card.</item>
+<item>An incredibly expensive &quot;Mad About You&quot; collector plate.</item>
+<item>Paul Moyer&apos;s necktie.</item>
+<item>A haircut and a real job. Now you know where to get one!</item>
+<item>An automated robot-hater. It frowns disapprovingly at you.</item>
+<item>An automated robot-liker. It smiles at you.</item>
+<item>It&apos;s a black hole. Don&apos;t fall in!</item>
+<item>Just a big brick wall.</item>
+<item>You found kitten! No, just kidding.</item>
+<item>Heart of Darkness brand pistachio nuts.</item>
+<item>A smoking branding iron shaped like a 24-pin connector.</item>
+<item>It&apos;s a Java applet.</item>
+<item>An abandoned used-car lot.</item>
+<item>A shameless plug for Crummy: http://www.crummy.com/</item>
+<item>A shameless plug for the UCLA Linux Users Group: http://linux.ucla.edu/</item>
+<item>A can of Spam Lite.</item>
+<item>This is another fine mess you&apos;ve gotten us into, Stanley.</item>
+<item>It&apos;s scenery for &quot;Waiting for Godot&quot;.</item>
+<item>This grain elevator towers high above you.</item>
+<item>A Mentos wrapper.</item>
+<item>It&apos;s the constellation Pisces.</item>
+<item>It&apos;s a fly on the wall. Hi, fly!</item>
+<item>This kind of looks like kitten, but it&apos;s not.</item>
+<item>It&apos;s a banana! Oh, joy!</item>
+<item>A helicopter has crashed here.</item>
+<item>Carlos Tarango stands here, doing his best impression of Pat Smear.</item>
+<item>A patch of mushrooms grows here.</item>
+<item>A patch of grape jelly grows here.</item>
+<item>A spindle, and a grindle, and a bucka-wacka-woom!</item>
+<item>A geyser sprays water high into the air.</item>
+<item>A toenail? What good is a toenail?</item>
+<item>You&apos;ve found the fish! Not that it does you much good in this game.</item>
+<item>A Buttertonsils bar.</item>
+<item>One of the few remaining discoes.</item>
+<item>Ah, the uniform of a Revolutionary-era minuteman.</item>
+<item>A punch bowl, filled with punch and lemon slices.</item>
+<item>It&apos;s nothing but a G-thang, baby.</item>
+<item>IT&apos;S ALIVE! AH HA HA HA HA!</item>
+<item>This was no boating accident!</item>
+<item>Wait! This isn&apos;t the poker chip! You&apos;ve been tricked! DAMN YOU, MENDEZ!</item>
+<item>A livery stable! Get your livery!</item>
+<item>It&apos;s a perpetual immobility machine.</item>
+<item>&quot;On this spot in 1962, Henry Winkler was sick.&quot;</item>
+<item>There&apos;s nothing here; it&apos;s just an optical illusion.</item>
+<item>The World&apos;s Biggest Motzah Ball!</item>
+<item>A tribe of cannibals lives here. They eat Malt-O-Meal for breakfast, you know.</item>
+<item>This appears to be a rather large stack of trashy romance novels.</item>
+<item>Look out! Exclamation points!</item>
+<item>A herd of wild coffee mugs slumbers here.</item>
+<item>It&apos;s a limbo bar! How low can you go?</item>
+<item>It&apos;s the horizon. Now THAT&apos;S weird.</item>
+<item>A vase full of artificial flowers is stuck to the floor here.</item>
+<item>A large snake bars your way.</item>
+<item>A pair of saloon-style doors swing slowly back and forth here.</item>
+<item>It&apos;s an ordinary bust of Beethoven... but why is it painted green?</item>
+<item>It&apos;s TV&apos;s lovable wisecracking Crow! &quot;Bite me!&quot;, he says.</item>
+<item>Hey, look, it&apos;s war. What is it good for? Absolutely nothing. Say it again.</item>
+<item>It&apos;s the amazing self-referential thing that&apos;s not kitten.</item>
+<item>A flamboyant feather boa. Now you can dress up like Carol Channing!</item>
+<item>&quot;Sure hope we get some rain soon,&quot; says Farmer Joe.</item>
+<item>&quot;How in heck can I wash my neck if it ain&apos;t gonna rain no more?&quot; asks Farmer Al.</item>
+<item>&quot;Topsoil&apos;s all gone, ma,&quot; weeps Lil&apos; Greg.</item>
+<item>This is a large brown bear. Oddly enough, it&apos;s currently peeing in the woods.</item>
+<item>A team of arctic explorers is camped here.</item>
+<item>This object here appears to be Louis Farrakhan&apos;s bow tie.</item>
+<item>This is the world-famous Chain of Jockstraps.</item>
+<item>A trash compactor, compacting away.</item>
+<item>This toaster strudel is riddled with bullet holes!</item>
+<item>It&apos;s a hologram of a crashed helicopter.</item>
+<item>This is a television. On screen you see a robot strangely similar to yourself.</item>
+<item>This balogna has a first name, it&apos;s R-A-N-C-I-D.</item>
+<item>A salmon hatchery? Look again. It&apos;s merely a single salmon.</item>
+<item>It&apos;s a rim shot. Ba-da-boom!</item>
+<item>It&apos;s creepy and it&apos;s kooky, mysterious and spooky. It&apos;s also somewhat ooky.</item>
+<item>This is an anagram.</item>
+<item>This object is like an analogy.</item>
+<item>It&apos;s a symbol. You see in it a model for all symbols everywhere.</item>
+<item>The object pushes back at you.</item>
+<item>A traffic signal. It appears to have been recently vandalized.</item>
+<item>&quot;There is no kitten!&quot; cackles the old crone. You are shocked by her blasphemy.</item>
+<item>This is a Lagrange point. Don&apos;t come too close now.</item>
+<item>The dirty old tramp bemoans the loss of his harmonica.</item>
+<item>Look, it&apos;s Fanny the Irishman!</item>
+<item>What in blazes is this?</item>
+<item>It&apos;s the instruction manual for a previous version of this game.</item>
+<item>A brain cell. Oddly enough, it seems to be functioning.</item>
+<item>Tea and/or crumpets.</item>
+<item>This jukebox has nothing but Cliff Richards albums in it.</item>
+<item>It&apos;s a Quaker Oatmeal tube, converted into a drum.</item>
+<item>This is a remote control. Being a robot, you keep a wide berth.</item>
+<item>It&apos;s a roll of industrial-strength copper wire.</item>
+<item>Oh boy! Grub! Er, grubs.</item>
+<item>A puddle of mud, where the mudskippers play.</item>
+<item>Plenty of nothing.</item>
+<item>Look at that, it&apos;s the Crudmobile.</item>
+<item>Just Walter Mattheau and Jack Lemmon.</item>
+<item>Two crepes, two crepes in a box.</item>
+<item>An autographed copy of &quot;Primary Colors&quot;, by Anonymous.</item>
+<item>Another rabbit? That&apos;s three today!</item>
+<item>It&apos;s a segmentation fault. Core dumped, by the way.</item>
+<item>A historical marker showing the actual location of /dev/null.</item>
+<item>Thar&apos;s Mobius Dick, the convoluted whale. Arrr!</item>
+<item>It&apos;s a charcoal briquette, smoking away.</item>
+<item>A pizza, melting in the sun.</item>
+<item>It&apos;s a &quot;HOME ALONE 2: Lost in New York&quot; novelty cup.</item>
+<item>A stack of 7 inch floppies wobbles precariously.</item>
+<item>It&apos;s nothing but a corrupted floppy. Coaster anyone?</item>
+<item>A section of glowing phosphor cells sings a song of radiation to you.</item>
+<item>This TRS-80 III is eerily silent.</item>
+<item>A toilet bowl occupies this space.</item>
+<item>This peg-leg is stuck in a knothole!</item>
+<item>It&apos;s a solitary vacuum tube.</item>
+<item>This corroded robot is clutching a mitten.</item>
+<item>&quot;Hi, I&apos;m Anson Williams, TV&apos;s &apos;Potsy&apos;.&quot;</item>
+<item>This subwoofer was blown out in 1974.</item>
+<item>Three half-pennies and a wooden nickel.</item>
+<item>It&apos;s the missing chapter to &quot;A Clockwork Orange&quot;.</item>
+<item>It&apos;s a burrito stand flyer. &quot;Taqueria El Ranchito&quot;.</item>
+<item>This smiling family is happy because they eat LARD.</item>
+<item>Roger Avery, persona un famoso de los Estados Unidos.</item>
+<item>Ne&apos;er but a potted plant.</item>
+<item>A parrot, kipping on its back.</item>
+<item>A forgotten telephone switchboard.</item>
+<item>A forgotten telephone switchboard operator.</item>
+<item>It&apos;s an automated robot-disdainer. It pretends you&apos;re not there.</item>
+<item>It&apos;s a portable hole. A sign reads: &quot;Closed for the winter&quot;.</item>
+<item>Just a moldy loaf of bread.</item>
+<item>A little glass tub of Carmex. ($.89) Too bad you have no lips.</item>
+<item>A Swiss-Army knife. All of its appendages are out. (toothpick lost)</item>
+<item>It&apos;s a zen simulation, trapped within an ASCII character.</item>
+<item>It&apos;s a copy of &quot;The Rubaiyat of Spike Schudy&quot;.</item>
+<item>It&apos;s &quot;War and Peace&quot; (unabridged, very small print).</item>
+<item>A willing, ripe tomato bemoans your inability to digest fruit.</item>
+<item>A robot comedian. You feel amused.</item>
+<item>It&apos;s KITT, the talking car.</item>
+<item>Here&apos;s Pete Peterson. His batteries seem to have long gone dead.</item>
+<item>&quot;Blup, blup, blup&quot;, says the mud pot.</item>
+<item>More grist for the mill.</item>
+<item>Grind &apos;em up, spit &apos;em out, they&apos;re twigs.</item>
+<item>The boom box cranks out an old Ethel Merman tune.</item>
+<item>It&apos;s &quot;Finding kitten&quot;, published by O&apos;Reilly and Associates.</item>
+<item>Pumpkin pie spice.</item>
+<item>It&apos;s the Bass-Matic &apos;76! Mmm, that&apos;s good bass!</item>
+<item>&quot;Lend us a fiver &apos;til Thursday&quot;, pleas Andy Capp.</item>
+<item>It&apos;s a tape of &apos;70s rock. All original hits! All original artists!</item>
+<item>You&apos;ve found the fabled America Online disk graveyard!</item>
+<item>Empty jewelboxes litter the landscape.</item>
+<item>It&apos;s the astounding meta-object.</item>
+<item>Ed McMahon stands here, lost in thought. Seeing you, he bellows, &quot;YES SIR!&quot;</item>
+<item>...thingy???</item>
+<item>It&apos;s 1000 secrets the government doesn&apos;t want you to know!</item>
+<item>The letters O and R.</item>
+<item>A magical... magic thing.</item>
+<item>It&apos;s a moment of silence.</item> 
+<item>It&apos;s Sirhan-Sirhan, looking guilty.</item> 
+<item>It&apos;s &quot;Chicken Soup for the Kitten-seeking Soulless Robot.&quot;</item> 
+<item>It is a set of wind-up chatter teeth.</item> 
+<item>It is a cloud shaped like an ox.</item> 
+<item>You see a snowflake here, melting slowly.</item> 
+<item>It&apos;s a big block of ice. Something seems to be frozen inside it.</item> 
+<item>Vladimir Lenin&apos;s casket rests here.</item> 
+<item>It&apos;s a copy of &quot;Zen and The Art of Robot Maintenance&quot;.</item> 
+<item>This invisible box contains a pantomime horse.</item> 
+<item>A mason jar lies here open. Its label reads: &quot;do not open!&quot;.</item> 
+<item>A train of thought chugs through here.</item> 
+<item>This jar of pickles expired in 1957.</item> 
+<item>Someone&apos;s identity disk lies here.</item> 
+<item>&quot;Yes!&quot; says the bit.</item> 
+<item>&quot;No!&quot; says the bit.</item> 
+<item>A dodecahedron bars your way.</item> 
+<item>Mr. Hooper is here, surfing.</item> 
+<item>It&apos;s a big smoking fish.</item> 
+<item>You have new mail in /var/spool/robot</item> 
+<item>Just a monitor with the blue element burnt out.</item> 
+<item>A pile of coaxial plumbing lies here.</item> 
+<item>It&apos;s a rotten old shoe.</item> 
+<item>It&apos;s a hundred-dollar bill.</item> 
+<item>It&apos;s a Dvorak keyboard.</item> 
+<item>It&apos;s a cardboard box full of 8-tracks.</item> 
+<item>Just a broken hard drive containg the archives of Nerth Pork.</item> 
+<item>A broken metronome sits here, its needle off to one side.</item> 
+<item>A sign reads: &quot;Go home!&quot;</item> 
+<item>A sign reads: &quot;No robots allowed!&quot;</item> 
+<item>It&apos;s the handheld robotfindskitten game, by Tiger.</item> 
+<item>This particular monstrosity appears to be ENIAC.</item> 
+<item>This is a tasty-looking banana creme pie.</item> 
+<item>A wireframe model of a hot dog rotates in space here.</item> 
+<item>Just the empty husk of a locust.</item> 
+<item>You disturb a murder of crows.</item> 
+<item>It&apos;s a copy of the robotfindskitten EULA.</item> 
+<item>It&apos;s Death.</item> 
+<item>It&apos;s an autographed copy of &quot;Secondary Colors,&quot; by Bob Ross.</item> 
+<item>It is a marzipan dreadnought that appears to have melted and stuck.</item> 
+<item>It&apos;s a DVD of &quot;Crouching Monkey, Hidden Kitten&quot;, region encoded for the moon.</item> 
+<item>It&apos;s Kieran Hervold.  Damn dyslexia!</item> 
+<item>A non-descript box of crackers.</item> 
+<item>Carbonated Water, High Fructose Corn Syrup, Color, Phosphoric Acid, Flavors, Caffeine.</item> 
+<item>&quot;Move along! Nothing to see here!&quot;</item> 
+<item>It&apos;s the embalmed corpse of Vladimir Lenin.</item> 
+<item>A coupon for one free steak-fish at your local family diner.</item> 
+<item>A set of keys to a 2001 Rolls Royce. Worthless.</item> 
+<item>A gravestone stands here.  &quot;Izchak Miller, ascended.&quot;</item> 
+<item>Someone has written &quot;ad aerarium&quot; on the ground here.</item> 
+<item>A large blue eye floats in midair.</item> 
+<item>This appears to be a statue of Perseus.</item> 
+<item>There is an opulent throne here.</item> 
+<item>It&apos;s a squad of Keystone Kops.</item> 
+<item>This seems to be junk mail addressed to the finder of the Eye of Larn.</item> 
+<item>A wondrous and intricate golden amulet.  Too bad you have no neck.</item> 
+<item>The swampy ground around you seems to stink with disease.</item> 
+<item>An animate blob of acid.  Being metallic, you keep well away.</item> 
+<item>It&apos;s a copy of Knuth with the chapter on kitten-search algorithms torn out.</item> 
+<item>A crowd of people, and at the center, a popular misconception.</item> 
+<item>It&apos;s a blind man. When you touch, he exclaims &quot;It&apos;s a kitten prospecting robot!&quot;</item> 
+<item>It&apos;s a lost wallet. It&apos;s owner didn&apos;t have pets, so you discard it.</item> 
+<item>This place is called Antarctica. There is no kitten here.</item> 
+<item>It&apos;s a mousetrap, baited with soap.</item> 
+<item>A book with &quot;Don&apos;t Panic&quot; in large friendly letters across the cover.</item> 
+<item>A compendium of haiku about metals.</item> 
+<item>A discredited cosmology, relic of a bygone era.</item> 
+<item>A hollow voice says &quot;Plugh&quot;.</item> 
+<item>A knight who says &quot;Either I am an insane knave, or you will find kitten.&quot;.</item> 
+<item>A neural net -- maybe it&apos;s trying to recognize kitten.</item> 
+<item>A screwdriver.</item> 
+<item>A statue of a girl holding a goose like the one in Gottingen, Germany.</item> 
+<item>A tetradrachm dated &quot;42 B.C.&quot;</item> 
+<item>A voice booms out &quot;Onward, kitten soldiers...&quot;</item> 
+<item>An eminently forgettable zahir.</item> 
+<item>Apparently, it&apos;s Edmund Burke.</item> 
+<item>For a moment, you feel something in your hands, but it disappears!</item> 
+<item>Here is a book about Robert Kennedy.</item> 
+<item>Hey, robot, leave those lists alone.</item> 
+<item>Ho hum.  Another synthetic a posteriori.</item> 
+<item>It&apos;s Asimov&apos;s Laws of Robotics.  You feel a strange affinity for them.</item> 
+<item>It&apos;s Bach&apos;s Mass in B-minor!</item> 
+<item>It&apos;s a bug.</item> 
+<item>It&apos;s a synthetic a priori truth!  Immanuel would be so pleased!</item> 
+<item>It&apos;s the Tiki Room.</item> 
+<item>Just some old play by a Czech playwright, and you can&apos;t read Czech.</item> 
+<item>Kitten is the letter &apos;Q&apos;.  Oh, wait, maybe not.</item> 
+<item>Quidquid Latine dictum sit, kitten non est.</item> 
+<item>Sutro Tower is visible at some distance through the fog.</item> 
+<item>The Digital Millennium Copyright Act of 1998.</item> 
+<item>The United States Court of Appeals for the Federal Circuit.</item> 
+<item>The non-kitten item like this but with &quot;false&quot; and &quot;true&quot; switched is true.</item> 
+<item>The non-kitten item like this but with &quot;true&quot; and &quot;false&quot; switched is false.</item> 
+<item>This is the chapter called &quot;A Map of the Cat?&quot; from Feynman&apos;s autobiography.</item> 
+<item>This is the forest primeval.</item> 
+<item>Werner&apos;s &quot;Pocket Field Guide to Things That Are Not Kitten&quot;.</item> 
+<item>You found nettik, but that&apos;s backwards.</item> 
+<item>You have found some zinc, but you must not stop here, for you must find kitten.</item> 
+<item>&quot;50 Years Among the Non-Kitten Items&quot;, by Ann Droyd.</item> 
+<item>&quot;Robot may not injure kitten, or, through inaction, ...&quot;</item> 
+<item>&quot;Address Allocation for Private Internets&quot; by Yakov Rekhter et al.</item> 
+<item>&quot;Mail Routing and the Domain System&quot; by Craig Partridge.</item> 
+<item>&quot;The Theory and Practice of Oligarchical Collectivism&quot; by Emmanuel Goldstein.</item> 
+<item>&quot;201 Kitten Verbs, Fully Conjugated&quot;.  You look for &quot;find&quot;.</item> 
+<item>A card shark sits here, practicing his Faro shuffle.  He ignores you.</item> 
+<item>A copy of DeCSS.  They&apos;re a dime a dozen these days.</item> 
+<item>A demonic voice proclaims &quot;There is no kitten, only Zuul&quot;.  You flee.</item> 
+<item>A lotus.  You make an interesting pair.</item> 
+<item>A milk carton, with a black and white picture of kitten on the side.</item> 
+<item>Any ordinary robot could see from a mile away that this wasn&apos;t kitten.</item> 
+<item>A stegosaurus, escaped from the stegosaurusfindsrobot game.  It finds you.</item> 
+<item>Baling wire and chewing gum.</item> 
+<item>Chewing gum and baling wire.</item> 
+<item>Here is no kitten but only rock, rock and no kitten and the sandy road.</item> 
+<item>Hey, I bet you thought this was kitten.</item> 
+<item>It is an ancient mariner, and he stoppeth one of three.</item> 
+<item>It pleases you to be kind to what appears to be kitten -- but it&apos;s not!</item> 
+<item>It&apos;s a blatant plug for Ogg Vorbis, http://www.vorbis.com/</item> 
+<item>It&apos;s a business plan for a new startup, kitten.net.</item> 
+<item>It&apos;s a revised business plan for a new startup, my.kitten.net.</item> 
+<item>It&apos;s a square.</item> 
+<item>It seems to be a copy of &quot;A Tail of Two Kitties&quot;.</item> 
+<item>It&apos;s the Donation of Constantine!</item> 
+<item>It&apos;s this message, nothing more.</item> 
+<item>Lysine, an essential amino acid.  Well, maybe not for robots.</item> 
+<item>No kitten here.</item> 
+<item>The score for a Czech composer&apos;s &quot;Kitten-Finding Symphony in C&quot;.</item> 
+<item>This looks like Bradley&apos;s &quot;Appearance and Reality&quot;, but it&apos;s really not.</item> 
+<item>This non-kitten item no verb.</item> 
+<item>You feel strangely unfulfilled.</item> 
+<item>You hit the non-kitten item.  The non-kitten item fails to yowl.</item> 
+<item>You suddenly yearn for your distant homeland.</item> 
+<item>You&apos;ve found the snows of yesteryear!  So that&apos;s where they all went to.</item> 
+<item>Approaching.  One car.  J.  Followed by.  Two car.  M, M.  In five. Minutes.</item> 
+<item>Free Jon Johansen!</item> 
+<item>Free Dmitry Sklyarov!</item> 
+<item>One person shouts &quot;What do we want?&quot; The crowd answers &quot;Free Dmitry!&quot;</item> 
+<item>Judith Platt insults librarians.</item> 
+<item>This map is not the territory.</item> 
+<item>&quot;Go back to Libraria!&quot;, says Pat Schroeder.</item> 
+<item>This is a porcelain kitten-counter.  0, 0, 0, 0, 0...</item> 
+<item>An old bootable business card, unfortunately cracked down the middle.</item> 
+<item>A kitten sink, for washing kitten (if only kitten liked water).</item> 
+<item>A kitten source (to match the kitten sink).</item> 
+<item>If it&apos;s one thing, it&apos;s not another.</item> 
+<item>If it&apos;s not one thing, it&apos;s another.</item> 
+<item>A caboodle.</item> 
+<item>A grin.</item> 
+<item>A hedgehog.  It looks like it knows something important.</item> 
+<item>You&apos;ve found... Oh wait, that&apos;s just a cat.</item> 
+<item>Robot should not be touching that.</item> 
+<item>Air Guitar!!!  NA na NA na!!</item> 
+<item>An aromatherapy candle burns with healing light.</item> 
+<item>You find a bright shiny penny.</item> 
+<item>It&apos;s a free Jon Johansen!</item> 
+<item>It&apos;s a free Dmitry Sklyarov!</item> 
+<item>The rothe hits!  The rothe hits!</item> 
+<item>It&apos;s an Internet chain letter about sodium laureth sulfate.</item> 
+<item>Ed Witten sits here, pondering string theory.</item> 
+<item>Something is written here in the dust.  You read: &quot;rJbotf ndQkttten&quot;.</item> 
+<item>We wish you a merry kitten, and a happy New Year!</item> 
+<item>Run away!  Run away!</item> 
+<item>You can see right through this copy of Brin&apos;s &quot;Transparent Society&quot;.</item> 
+<item>This copy of &quot;Steal This Book&quot; has been stolen from a bookstore.</item> 
+<item>It&apos;s Roya Naini.</item> 
+<item>This kit is the fourteenth in a series of kits named with Roman letters.</item> 
+<item>This is the tenth key you&apos;ve found so far.</item> 
+<item>You find a fraud scheme in which loans are used as security for other loans.</item> 
+<item>It&apos;s the phrase &quot;and her&quot;, written in ancient Greek.</item> 
+<item>It&apos;s the author of &quot;Randomness and Mathematical Proof&quot;.</item> 
+<item>It&apos;s the crusty exoskeleton of an arthropod!</item> 
+<item>It&apos;s Emporer Shaddam the 4th&apos;s planet!</item> 
+<item>It&apos;s the triangle leg adjacent to an angle divided by the leg opposite it.</item> 
+<item>It&apos;s a bottle of nail polish remover.</item> 
+<item>You found netkit! Way to go, robot!</item> 
+<item>It&apos;s the ASCII Floating Head of Seth David Schoen!</item> 
+<item>A frosted pink party-cake, half eaten.</item> 
+<item>A bitchin&apos; homemade tesla coil.</item> 
+<item>Conan O&apos;Brian, sans jawbone.</item> 
+<item>It&apos;s either a mirror, or another soulless kitten-seeking robot.</item> 
+<item>Preoccupation with finding kitten prevents you from investigating further.</item> 
+<item>Fonzie sits here, mumbling incoherently about a shark and a pair of waterskis.</item> 
+<item>The ghost of your dance instructor, his face a paper-white mask of evil.</item> 
+<item>A bag of groceries taken off the shelf before the expiration date.</item> 
+<item>A book: Feng Shui, Zen: the art of randomly arranging items that are not kitten.</item> 
+<item>This might be the fountain of youth, but you&apos;ll never know.</item> 
+<item>Tigerbot Hesh.</item> 
+<item>Stimutacs.</item> 
+<item>A canister of pressurized whipped cream, sans whipped cream.</item> 
+<item>The non-kitten item bites!</item> 
+<item>A chain hanging from two posts reminds you of the Gateway Arch.</item> 
+<item>A mathematician calculates the halting probability of a Turing machine.</item> 
+<item>A number of short theatrical productions are indexed 1, 2, 3, ... n.</item> 
+<item>A technical university in Australia.</item> 
+<item>It is -- I just feel something wonderful is about to happen.</item> 
+<item>It&apos;s a Cat 5 cable.</item> 
+<item>It&apos;s a U.S. president.</item> 
+<item>It&apos;s a piece of cloth used to cover a stage in between performances.</item> 
+<item>The ionosphere seems charged with meaning.</item> 
+<item>This tomography is like, hella axial, man!</item> 
+<item>It&apos;s your favorite game -- robotfindscatan!</item> 
+<item>Just a man selling an albatross.</item> 
+<item>The intermission from a 1930s silent movie.</item> 
+<item>It&apos;s an inverted billiard ball!</item> 
+<item>The spectre of Sherlock Holmes wills you onwards.</item>
+<item>It&apos;s the blink tag!</item>
+<item>The document type definition for a Kitten Object Model.</item>
+<item>The number 22.  Could this be a COINCIDENCE?!</item>
+
+</root>
