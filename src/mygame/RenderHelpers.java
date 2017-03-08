@@ -34,7 +34,7 @@ import java.util.UUID;
 public class RenderHelpers {
     public static AssetManager assetManager;
     /**
-     * 
+     * Generate cube, representing Game Item
      * @return final node, ready to be attached to scene graph
      */
     public static Node PreparedModel() {

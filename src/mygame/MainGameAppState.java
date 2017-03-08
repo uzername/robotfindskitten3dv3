@@ -112,7 +112,7 @@ public void setEnabled(boolean enabled) {
         AllGameResources.myCam = new CameraNode("CamNode", app.getCamera());
         AllGameResources.myCam.setControlDir(CameraControl.ControlDirection.SpatialToCamera);
         AllGameResources.playerNode.attachChild(AllGameResources.myCam);
-        AllGameResources.myCam.setLocalTranslation(new Vector3f(-7, 5, 0));
+        AllGameResources.myCam.setLocalTranslation(new Vector3f(-5, 3, 0));
     
         AllGameResources.myCam.lookAt(AllGameResources.playerNode.getLocalTranslation(), Vector3f.UNIT_Y);
         
@@ -161,14 +161,15 @@ public void setEnabled(boolean enabled) {
        RenderHelpers.assetManager = assetManager;
        for (processing.GameFieldItem object : AllParams.GameLogicArray) {  
         Node addedNode = RenderHelpers.PreparedModel();
-        /*
-        addedNode.setLocalTranslation(processing.AllParams.allFieldDim1.floatValue()/2.0f, 0.0f, -processing.AllParams.allFieldDim2.floatValue()/2.0f);
-        shadowNode.attachChild(addedNode);
-        */
+        
         addedNode.setLocalTranslation(object.fieldXPosition.floatValue(), 0.0f, -object.fieldYPosition.floatValue());
         shadowNode.attachChild(addedNode);
        }
-       
+       /*
+        addedNode.setLocalTranslation(processing.AllParams.allFieldDim1.floatValue()/2.0f, 0.0f, -processing.AllParams.allFieldDim2.floatValue()/2.0f);
+        shadowNode.attachChild(addedNode);
+        */
+        /*
         Node addedNode2 = RenderHelpers.PreparedModel();
         addedNode2.setLocalTranslation(0.0f, 0.0f, -AllParams.allFieldDim2.floatValue());
         shadowNode.attachChild(addedNode2);
@@ -184,6 +185,7 @@ public void setEnabled(boolean enabled) {
         Node addedNode5 = RenderHelpers.PreparedModel();
         addedNode5.setLocalTranslation(AllParams.allFieldDim1.floatValue(), 0.0f, -0.0f);
         shadowNode.attachChild(addedNode5);
+        */
    }
 
         public void onAnalog(String name, float value, float tpf) {
