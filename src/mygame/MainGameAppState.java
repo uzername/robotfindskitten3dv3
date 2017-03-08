@@ -61,7 +61,7 @@ public void initialize(AppStateManager stateManager, Application app) {
     this.assetManager = this.app.getAssetManager();
     
     this.shadowNode = new Node("ShadowNode");
-    this.rootNode.attachChild(shadowNode);
+    //this.rootNode.attachChild(shadowNode);
     
     System.out.println("Initialize");
     this.basicSetLight();
@@ -76,20 +76,21 @@ public void setEnabled(boolean enabled) {
     super.setEnabled(enabled);
     if(enabled){
         // init stuff that is in use while this state is RUNNING
-        //System.out.println("++++++Enabling scene++++++");
-        if (justInitialized == false) {
+        System.out.println("++++++Enabling scene++++++");
+        if (enabled) {
             System.out.println("Attaching shadowNode");
             this.registerInput();
             this.rootNode.attachChild(shadowNode);
             System.out.println("Attaching sun");
             rootNode.addLight(this.sun); rootNode.addLight(this.al);
+            justInitialized = false;
         } else {
             
         }
       } else {
-        //System.out.println("------Shuting down scene------");
         // take away everything not needed while this state is PAUSED
-        justInitialized = false;        
+        
+        System.out.println("------Shuting down scene. Removing Listeners------");
         rootNode.removeLight(al); rootNode.removeLight(sun);
         
         app.getInputManager().deleteMapping("moveForward");
@@ -101,8 +102,11 @@ public void setEnabled(boolean enabled) {
         app.getInputManager().deleteMapping("rotateUp");
         app.getInputManager().deleteMapping("rotateDown");
         
+        if (justInitialized == false){
+        System.out.println("------Shuting down scene. Removing shadowNode------");
         //rootNode.detachAllChildren();
         rootNode.detachChild(shadowNode);
+        }
       }
 }
 
@@ -121,10 +125,12 @@ public void setEnabled(boolean enabled) {
     private void basicSetLight() {
         this.sun = new DirectionalLight();
         this.sun.setDirection(new Vector3f(-0.1f, -0.7f, -1.0f));
-        rootNode.addLight(this.sun);
+        //rootNode.addLight(this.sun);
         this.al = new AmbientLight();
         this.al.setColor(ColorRGBA.White.mult(0.5f));
-        rootNode.addLight(this.al);
+        //rootNode.addLight(this.al);
+        
+        //light is being added on scene activation, removed on deactivation
     }
     
     private void setScene() {

@@ -35,7 +35,8 @@ public class MenuGameAppState extends AbstractAppState {
     
     private Container myWindow;
     private Button continueBtn;
-    private boolean continueBtnAdded;
+    private boolean continueBtnRequired;
+    
     
     public Boolean justInitialized;
     
@@ -93,7 +94,7 @@ public class MenuGameAppState extends AbstractAppState {
         int leftLocation = Math.round(leftPercentPosition*winResolutionHeight);
         myWindow.setLocalTranslation(leftLocation, topLocation, 0);
         
-        this.continueBtnAdded = false;
+        this.continueBtnRequired = false;
         this.justInitialized = true;
     }
     @Override
@@ -101,24 +102,37 @@ public class MenuGameAppState extends AbstractAppState {
         // Pause and unpause
         super.setEnabled(enabled);
         if(enabled){ 
-            if (justInitialized==false) {
-                //append continue button, but only once.
-                if (continueBtnAdded == false) {
+            
+            
+                //append continue button, but only once. continue button is not shown on the first run of menu
+                //it is being shown only on the second and further menu displayings
+                //value justInitialized==true if not changed in outer routine
+                if ((continueBtnRequired == true)) {
                     continueBtn = myWindow.addChild(new ActionButton(new CallMethodAction("Continue Game", app, "switchStateToMainGame")));
-                    continueBtnAdded = true;
+                    continueBtnRequired = false;
                 }
+            //this change change will take place on second run of setEnabled method. 
+            //justInitialized == true only on the 1st run
+            if (justInitialized == true) {
+                continueBtnRequired = true;
             }
+                
+                
             justInitialized = false;    
             // init stuff that is in use while this state is RUNNING
-            System.out.println("Attach menu");
+            System.out.println("++++++Attach menu++++++");
             Node gui = app.getGuiNode();
             
             gui.attachChild(myWindow);
             GuiGlobals.getInstance().requestFocus(myWindow);
+            
+            
         } else {
             // take away everything not needed while this state is PAUSED
             if (justInitialized == false) {
-            myWindow.removeFromParent(); 
+                myWindow.removeFromParent(); 
+                System.out.println("------Remove menu------");
+            
             }
         }
     }

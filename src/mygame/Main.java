@@ -97,9 +97,9 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
         state2 = new MenuGameAppState();
         state2.initialize(stateManager, this);
         //stateManager.attach(state2);
-        state.setEnabled(true);
-        state2.setEnabled(false);
-        state.justInitialized = false;
+        state.setEnabled(false);
+        state2.setEnabled(true);
+        //state2.justInitialized = true;
     }
 
     @Override
