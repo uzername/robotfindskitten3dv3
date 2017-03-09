@@ -116,7 +116,7 @@ public void setEnabled(boolean enabled) {
         AllGameResources.myCam = new CameraNode("CamNode", app.getCamera());
         AllGameResources.myCam.setControlDir(CameraControl.ControlDirection.SpatialToCamera);
         AllGameResources.playerNode.attachChild(AllGameResources.myCam);
-        AllGameResources.myCam.setLocalTranslation(new Vector3f(-5, 3, 0));
+        AllGameResources.myCam.setLocalTranslation(new Vector3f(-3.5f, 2.5f, 0));
     
         AllGameResources.myCam.lookAt(AllGameResources.playerNode.getLocalTranslation(), Vector3f.UNIT_Y);
         
