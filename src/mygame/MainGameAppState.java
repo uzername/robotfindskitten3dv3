@@ -27,6 +27,9 @@ import com.jme3.scene.shape.Quad;
 import com.jme3.texture.Texture;
 import processing.AllParams;
 
+import com.jme3.bullet.BulletAppState;
+import com.jme3.bullet.control.RigidBodyControl;
+
 /**
  * main game app state. see JMonkeyEngine Beginners Guide 3
  * https://jmonkeyengine.github.io/wiki/jme3/advanced/application_states.html
@@ -147,6 +150,11 @@ public void setEnabled(boolean enabled) {
         AllGameResources.playerNode = new Node("player");
         AllGameResources.playerNode.attachChild(AllGameResources.player2);
         shadowNode.attachChild(AllGameResources.playerNode);
+        /*
+         RigidBodyControl thingPhy = new RigidBodyControl(10f);
+         AllGameResources.player2.addControl(thingPhy);
+        ((Main)(this.app)).bulletAppState.getPhysicsSpace().add(thingPhy);
+        */
         
         //append floor
         Quad plain = new Quad(processing.AllParams.allFieldDim1.floatValue(), processing.AllParams.allFieldDim2.floatValue());
@@ -167,7 +175,11 @@ public void setEnabled(boolean enabled) {
        RenderHelpers.assetManager = assetManager;
        for (processing.GameFieldItem object : AllParams.GameLogicArray) {  
         Node addedNode = RenderHelpers.PreparedModel();
-        
+        /*
+        RigidBodyControl thingPhy = new RigidBodyControl(0f);
+        addedNode.addControl(thingPhy);
+        ((Main)(this.app)).bulletAppState.getPhysicsSpace().add(thingPhy);
+          */      
         addedNode.setLocalTranslation(object.fieldXPosition.floatValue(), 0.0f, -object.fieldYPosition.floatValue());
         shadowNode.attachChild(addedNode);
        }
@@ -219,6 +231,7 @@ public void setEnabled(boolean enabled) {
             camProjectionVector.multLocal(-5 * tpf);
             AllGameResources.direction.set(camProjectionVector);
             AllGameResources.playerNode.move(AllGameResources.direction);
+            
         }
         if (name.equals("moveRight")) {
             //direction.crossLocal(Vector3f.UNIT_X).multLocal(5 * tpf);

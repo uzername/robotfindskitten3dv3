@@ -1,6 +1,8 @@
 package mygame;
 
 import com.jme3.app.SimpleApplication;
+import com.jme3.bullet.BulletAppState;
+import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
 import com.jme3.material.Material;
@@ -50,9 +52,15 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
     boolean rotate = true;
     */
      public NewClass mainGameAlgorithmRoutine;
+     
      public MainGameAppState state;
      public MenuGameAppState state2;
+     public BulletAppState bulletAppState;
+     public RigidBodyControl scenePhy;
+     
      public Boolean FPSdisplayed;
+     
+     
      
     public static void main(String[] args) {
         Main app = new Main();
@@ -80,6 +88,10 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
         
         inputManager.deleteMapping(INPUT_MAPPING_EXIT);
         registerInput();
+        
+        bulletAppState = new BulletAppState();
+        stateManager.attach(bulletAppState);
+        
         state = new MainGameAppState();
         state.initialize(stateManager, this);
         
