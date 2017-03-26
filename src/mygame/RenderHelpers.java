@@ -24,8 +24,12 @@ import java.awt.AlphaComposite;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
+import java.util.Random;
 
 import java.util.UUID;
+import processing.AllParams;
+import processing.GameFieldItem;
 
 /**
  *
@@ -38,9 +42,11 @@ public class RenderHelpers {
      * @return final node, ready to be attached to scene graph
      */
     public static Node PreparedModel() {
+            Random stringRandomizer = new Random();
         Node nodeReturn = new Node("ItemNode"+UUID.randomUUID().toString());
-        Box b = new Box(0.95f, 0.50f, 0.95f);
+        Box b = new Box(0.95f, 0.250f, 0.95f);
         Geometry low = new Geometry("red cube", b);
+        low.setLocalTranslation(0, 0.250f, 0);
         Material basemat = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
         basemat.setTexture("DiffuseMap", assetManager.loadTexture("Textures/floor2.jpg"));
         low.setMaterial(basemat);
@@ -55,6 +61,12 @@ public class RenderHelpers {
         helloText.setLocalTranslation(0, helloText.getLineHeight(), 0);        
         */
         //let's use some odd hints to render BufferedImage with transparency. Used to display the symbol
+        /*choose color and symbol*/
+            Random colorRandomizer = new Random();
+        String randLine = "A";
+        randLine = processing.AllParams.allSymbols.get(processing.NewClass.showRandomInteger(0, processing.AllParams.allSymbols.size()-1, stringRandomizer));
+        java.awt.Color randColor = processing.AllParams.allColorNames.get(processing.NewClass.showRandomInteger(0, processing.AllParams.allColorNames.size()-1, colorRandomizer));
+        /*==========*/
         AWTLoader loader = new AWTLoader();
         BufferedImage bufferedImage = new BufferedImage(100,100,BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = (Graphics2D) bufferedImage.getGraphics();
@@ -64,9 +76,9 @@ public class RenderHelpers {
         g.setComposite(AlphaComposite.Clear);
         g.fillRect(0, 0, 99, 99);
         g.setComposite(AlphaComposite.Src);
-        g.setColor(java.awt.Color.RED);
+        g.setColor(randColor);
         g.setFont(new java.awt.Font(java.awt.Font.MONOSPACED, java.awt.Font.BOLD, 80)); 
-        g.drawString("A", 25,65);
+        g.drawString(randLine, 25,65);
         Image load = loader.load(bufferedImage, true);
         Texture texture = new Texture2D(load);
          Material matText = (assetManager.loadMaterial("Materials/plainMaterial.j3m"));
@@ -74,9 +86,12 @@ public class RenderHelpers {
          matText.setTexture("DiffuseMap", texture);
          matText.setTexture("SpecularMap", texture);
          //matText.setTexture("NormalMap", texture);
-         matText.setColor("Ambient", ColorRGBA.Red);
+         float[] retColorCodes = randColor.getRGBColorComponents(null);
+         matText.setColor("Ambient", new ColorRGBA(retColorCodes[0],retColorCodes[1],retColorCodes[2],1.0f) );
          //matText.setColor("Specular", ColorRGBA.Red);
-         matText.setColor("Diffuse", ColorRGBA.Red);
+         
+         //System.out.println(Arrays.toString(retColorCodes));
+         matText.setColor("Diffuse",new ColorRGBA(retColorCodes[0],retColorCodes[1],retColorCodes[2],1.0f) );
          
          matText.getAdditionalRenderState().setBlendMode(RenderState.BlendMode.Alpha);
          matText.setTransparent(true);
@@ -136,5 +151,17 @@ public class RenderHelpers {
         nodeReturn.attachChild(upNode);
         
         return nodeReturn;
+    }
+    /**
+     * look through GameLogicArray and retrieve 'message' field which corresponds to collisionID
+     * @param Id
+     * @return 
+     */
+    public static String getItemDescriptionById(String Id) {
+        String itmLine="";
+        for (GameFieldItem object : AllParams.GameLogicArray) {
+            if (object.collisionID.equals(Id)) {return object.message; }
+        }
+        return itmLine;
     }
 }

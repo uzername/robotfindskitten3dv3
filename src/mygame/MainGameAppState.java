@@ -5,6 +5,9 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
+import com.jme3.bounding.BoundingBox;
+import com.jme3.collision.CollisionResult;
+import com.jme3.collision.CollisionResults;
 import com.jme3.input.KeyInput;
 import com.jme3.input.MouseInput;
 import com.jme3.input.controls.ActionListener;
@@ -25,6 +28,9 @@ import com.jme3.scene.control.CameraControl;
 import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Quad;
 import com.jme3.texture.Texture;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import processing.AllParams;
 
 /**
@@ -39,6 +45,9 @@ public class MainGameAppState extends AbstractAppState implements AnalogListener
     private AssetManager assetManager;
     private Node rootNode;
     private Node shadowNode;
+    
+    //contains colliding boxes for all of the columns
+    private Map<BoundingBox, String> CollidingBoxes;
     
     public AmbientLight al;
     public DirectionalLight sun;
@@ -165,11 +174,31 @@ public void setEnabled(boolean enabled) {
     }
    public void placeObjects() {
        RenderHelpers.assetManager = assetManager;
+       CollidingBoxes = new HashMap<>();
+       int currentIndex=0;
        for (processing.GameFieldItem object : AllParams.GameLogicArray) {  
         Node addedNode = RenderHelpers.PreparedModel();
         
         addedNode.setLocalTranslation(object.fieldXPosition.floatValue(), 0.0f, -object.fieldYPosition.floatValue());
+        BoundingBox collisionDetector = new BoundingBox(new Vector3f(addedNode.getLocalTranslation().x, 
+                                                        addedNode.getLocalTranslation().y, 
+                                                        addedNode.getLocalTranslation().z), 
+                                             0.95f, 4.5f, 0.95f);
+        /*
+        Box collisionGeomBox = new Box(0.95f, 4.5f, 0.95f);
+        Geometry collisionGeom = new Geometry("Collision_"+addedNode.getName(), collisionGeomBox);
+        collisionGeom.setModelBound(collisionDetector);
+        addedNode.attachChild(collisionGeom);
+        */
+        //addedNode.setModelBound(collisionDetector);
+        
+        
+        CollidingBoxes.put(collisionDetector, addedNode.getName());
+        
+        System.out.println("the position: "+addedNode.getLocalTranslation().toString());
         shadowNode.attachChild(addedNode);
+        AllParams.GameLogicArray.get(currentIndex).collisionID=addedNode.getName();
+        currentIndex++;
        }
        /*
         addedNode.setLocalTranslation(processing.AllParams.allFieldDim1.floatValue()/2.0f, 0.0f, -processing.AllParams.allFieldDim2.floatValue()/2.0f);
@@ -202,25 +231,113 @@ public void setEnabled(boolean enabled) {
         AllGameResources.direction.set(app.getCamera().getDirection()).normalizeLocal();
         Vector3f planeNormal = new Vector3f(0, 1, 0);
         if (name.equals("moveForward")) {
-            //direction.multLocal(5 * tpf);
-            //playerNode.move(direction);
-            // https://www.physicsforums.com/threads/projecting-a-vector-onto-a-plane.496184/
-            Vector3f camProjectionVector = new Vector3f(AllGameResources.direction.subtract(planeNormal.mult(AllGameResources.direction.mult(planeNormal))));
-            camProjectionVector.normalizeLocal();
-            camProjectionVector.multLocal(5 * tpf);
-            AllGameResources.direction.set(camProjectionVector);
-            AllGameResources.playerNode.move(AllGameResources.direction);
+            Boolean collisionTestPassed = false;
+                //direction.multLocal(5 * tpf);
+                //playerNode.move(direction);
+                // https://www.physicsforums.com/threads/projecting-a-vector-onto-a-plane.496184/
+                Vector3f camProjectionVector = new Vector3f(AllGameResources.direction.subtract(planeNormal.mult(AllGameResources.direction.mult(planeNormal))));
+                camProjectionVector.normalizeLocal();
+                camProjectionVector.multLocal(5 * tpf);
+                AllGameResources.direction.set(camProjectionVector);
+                AllGameResources.playerNode.move(AllGameResources.direction);
+            //test collision
+            String value1="";
+            for (Map.Entry<BoundingBox, String> entry : CollidingBoxes.entrySet()) {
+                BoundingBox singleCollidingBox = entry.getKey();
+                value1 = entry.getValue();
+                
+                CollisionResults results = new CollisionResults();
+                //AllGameResources.playerNode.collideWith(singleCollidingBox, results);
+                AllGameResources.playerNode.collideWith(singleCollidingBox, results);
+                /*
+                System.out.println("Number of Collisions between" +
+                AllGameResources.playerNode.getName()+ " and " + singleCollidingBox.getType().name() + ": " + results.size());
+                */
+                // Use the results
+                if (results.size() > 0) {
+                  // how to react when a collision was detected
+                  CollisionResult closest  = results.getClosestCollision();
+                  /*
+                  System.out.println("=====");
+                  System.out.println("What was hit? " + closest.getGeometry().getName() );
+                    System.out.println("identifier: "+value1);
+                  */
+                    System.out.println(RenderHelpers.getItemDescriptionById(value1));
+                  /*  
+                  System.out.println("Where was it hit? " + closest.getContactPoint() );
+                  System.out.println("Distance? " + closest.getDistance() );
+                  System.out.println("=====");
+                  */
+                  collisionTestPassed = true;
+                } else {
+                  // how to react when no collision occured
+                  //collisionTestPassed = false;
+                }
+            }
+            if (collisionTestPassed == true) {
+                //backtrace on collision. We have done movement before testing. 
+                AllGameResources.direction.set(-AllGameResources.direction.x, -AllGameResources.direction.y, -AllGameResources.direction.z);
+                AllGameResources.playerNode.move(AllGameResources.direction);
+                //we have only one type of collidable entity; lookup for message text and display it somehow. Identifier is stored in value1
+                
+            }
         }
         if (name.equals("moveBackward")) {
-            //direction.multLocal(-5 * tpf);
-            //playerNode.move(direction);
-            Vector3f camProjectionVector = new Vector3f(AllGameResources.direction.subtract(planeNormal.mult(AllGameResources.direction.mult(planeNormal))));
-            camProjectionVector.normalizeLocal();
-            camProjectionVector.multLocal(-5 * tpf);
-            AllGameResources.direction.set(camProjectionVector);
-            AllGameResources.playerNode.move(AllGameResources.direction);
+            Boolean collisionTestPassed = false;
+            
+                //direction.multLocal(-5 * tpf);
+                //playerNode.move(direction);
+                Vector3f camProjectionVector = new Vector3f(AllGameResources.direction.subtract(planeNormal.mult(AllGameResources.direction.mult(planeNormal))));
+                camProjectionVector.normalizeLocal();
+                camProjectionVector.multLocal(-5 * tpf);
+                AllGameResources.direction.set(camProjectionVector);
+                AllGameResources.playerNode.move(AllGameResources.direction);
+            
+            String value1="";
+            for (Map.Entry<BoundingBox, String> entry : CollidingBoxes.entrySet()) {
+                BoundingBox singleCollidingBox = entry.getKey();
+                value1 = entry.getValue();
+                
+                CollisionResults results = new CollisionResults();
+                //AllGameResources.playerNode.collideWith(singleCollidingBox, results);
+                AllGameResources.playerNode.collideWith(singleCollidingBox, results);
+                /*
+                System.out.println("Number of Collisions between" +
+                AllGameResources.playerNode.getName()+ " and " + singleCollidingBox.getType().name() + ": " + results.size());
+                */
+                // Use the results
+                if (results.size() > 0) {
+                  // how to react when a collision was detected
+                  CollisionResult closest  = results.getClosestCollision();
+                  /*
+                  System.out.println("=====");
+                  System.out.println("What was hit? " + closest.getGeometry().getName() );
+                    System.out.println("identifier: "+value1);
+                  */
+                    System.out.println(RenderHelpers.getItemDescriptionById(value1));
+                  /*  
+                  System.out.println("Where was it hit? " + closest.getContactPoint() );
+                  System.out.println("Distance? " + closest.getDistance() );
+                  System.out.println("=====");
+                  */
+                  collisionTestPassed = true;
+                } else {
+                  // how to react when no collision occured
+                  //collisionTestPassed = false;
+                }
+            }
+            
+            if (collisionTestPassed==true) {
+                //backtrace on collision. We have done movement before testing. 
+                AllGameResources.direction.set(-AllGameResources.direction.x, -AllGameResources.direction.y, -AllGameResources.direction.z);
+                AllGameResources.playerNode.move(AllGameResources.direction);
+                //here is the message
+                
+            }
         }
         if (name.equals("moveRight")) {
+            Boolean collisionTestPassed = false;
+            
             //direction.crossLocal(Vector3f.UNIT_X).multLocal(5 * tpf);
             //playerNode.move(direction);
             Vector3f camProjectionVector = new Vector3f(AllGameResources.direction.subtract(planeNormal.mult(AllGameResources.direction.mult(planeNormal))));
@@ -228,8 +345,52 @@ public void setEnabled(boolean enabled) {
             camProjectionVector.crossLocal(Vector3f.UNIT_Y).multLocal(5 * tpf);
             AllGameResources.direction.set(camProjectionVector);
             AllGameResources.playerNode.move(AllGameResources.direction);
+            
+            String value1="";
+            for (Map.Entry<BoundingBox, String> entry : CollidingBoxes.entrySet()) {
+                BoundingBox singleCollidingBox = entry.getKey();
+                value1 = entry.getValue();
+                
+                CollisionResults results = new CollisionResults();
+                //AllGameResources.playerNode.collideWith(singleCollidingBox, results);
+                AllGameResources.playerNode.collideWith(singleCollidingBox, results);
+                /*
+                System.out.println("Number of Collisions between" +
+                AllGameResources.playerNode.getName()+ " and " + singleCollidingBox.getType().name() + ": " + results.size());
+                */
+                // Use the results
+                if (results.size() > 0) {
+                  // how to react when a collision was detected
+                  CollisionResult closest  = results.getClosestCollision();
+                  /*
+                  System.out.println("=====");
+                  System.out.println("What was hit? " + closest.getGeometry().getName() );
+                    System.out.println("identifier: "+value1);
+                  */  
+                    System.out.println(RenderHelpers.getItemDescriptionById(value1));
+                  /*  
+                  System.out.println("Where was it hit? " + closest.getContactPoint() );
+                  System.out.println("Distance? " + closest.getDistance() );
+                  System.out.println("=====");
+                  */
+                  collisionTestPassed = true;
+                } else {
+                  // how to react when no collision occured
+                  //collisionTestPassed = false;
+                }
+            }
+            
+            if (collisionTestPassed==true) {
+                //backtrace on collision. We have done movement before testing. 
+                AllGameResources.direction.set(-AllGameResources.direction.x, -AllGameResources.direction.y, -AllGameResources.direction.z);
+                AllGameResources.playerNode.move(AllGameResources.direction);
+                
+            }
+            
         }
         if (name.equals("moveLeft")) {
+            Boolean collisionTestPassed = false;
+            
             //direction.crossLocal(Vector3f.UNIT_X).multLocal(-5 * tpf);
             //playerNode.move(direction);
             Vector3f camProjectionVector = new Vector3f(AllGameResources.direction.subtract(planeNormal.mult(AllGameResources.direction.mult(planeNormal))));
@@ -237,6 +398,48 @@ public void setEnabled(boolean enabled) {
             camProjectionVector.crossLocal(Vector3f.UNIT_Y).multLocal(-5 * tpf);
             AllGameResources.direction.set(camProjectionVector);
             AllGameResources.playerNode.move(AllGameResources.direction);
+            
+            String value1="";
+            for (Map.Entry<BoundingBox, String> entry : CollidingBoxes.entrySet()) {
+                BoundingBox singleCollidingBox = entry.getKey();
+                value1 = entry.getValue();
+                
+                CollisionResults results = new CollisionResults();
+                //AllGameResources.playerNode.collideWith(singleCollidingBox, results);
+                AllGameResources.playerNode.collideWith(singleCollidingBox, results);
+                /*
+                System.out.println("Number of Collisions between" +
+                AllGameResources.playerNode.getName()+ " and " + singleCollidingBox.getType().name() + ": " + results.size());
+                */
+                // Use the results
+                if (results.size() > 0) {
+                  // how to react when a collision was detected
+                  CollisionResult closest  = results.getClosestCollision();
+                  /*
+                  System.out.println("=====");
+                  System.out.println("What was hit? " + closest.getGeometry().getName() );
+                    System.out.println("identifier: "+value1);
+                  */
+                    System.out.println(RenderHelpers.getItemDescriptionById(value1));
+                  /*  
+                  System.out.println("Where was it hit? " + closest.getContactPoint() );
+                  System.out.println("Distance? " + closest.getDistance() );
+                  System.out.println("=====");
+                  */
+                  collisionTestPassed = true;
+                } else {
+                  // how to react when no collision occured
+                  //collisionTestPassed = false;
+                }
+            }
+            
+            if (collisionTestPassed==true) {
+                //backtrace on collision. We have done movement before testing. 
+                AllGameResources.direction.set(-AllGameResources.direction.x, -AllGameResources.direction.y, -AllGameResources.direction.z);
+                AllGameResources.playerNode.move(AllGameResources.direction);
+                
+            }
+            
         }
         if (name.equals("rotateRight") && AllGameResources.rotate) {
             AllGameResources.playerNode.rotate(0, 0.5f*value, 0);

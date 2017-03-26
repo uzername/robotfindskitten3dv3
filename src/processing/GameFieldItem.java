@@ -8,6 +8,11 @@ public class GameFieldItem {
     public Integer fieldXPosition;
     public Integer fieldYPosition;
     public String message;
+    
+    public String colorName;
+    public String symbolCode;
+    public String collisionID;
+    
     public GameFieldItem(Integer i_fieldXPosition, Integer i_fieldYPosition, String i_message) {
         this.fieldXPosition = i_fieldXPosition;
         this.fieldYPosition = i_fieldYPosition;
