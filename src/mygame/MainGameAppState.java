@@ -28,6 +28,10 @@ import com.jme3.scene.control.CameraControl;
 import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Quad;
 import com.jme3.texture.Texture;
+import com.simsilica.lemur.Container;
+import com.simsilica.lemur.GuiGlobals;
+import com.simsilica.lemur.Label;
+import com.simsilica.lemur.style.BaseStyles;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -45,6 +49,13 @@ public class MainGameAppState extends AbstractAppState implements AnalogListener
     private AssetManager assetManager;
     private Node rootNode;
     private Node shadowNode;
+    
+    private Container itemDescrWindow;
+    private Label itemDescrLabel;
+    private boolean itemDisplayed;
+    
+    //minor optimization for displaying messages. Surprisingly but optimization fails
+    private String previouslyHitItem = null;
     
     //contains colliding boxes for all of the columns
     private Map<BoundingBox, String> CollidingBoxes;
@@ -72,12 +83,30 @@ public void initialize(AppStateManager stateManager, Application app) {
     this.shadowNode = new Node("ShadowNode");
     //this.rootNode.attachChild(shadowNode);
     
+    //initialize interface (for displaying item description)
+     GuiGlobals.initialize(this.app);
+     BaseStyles.loadGlassStyle();
+     GuiGlobals.getInstance().getStyles().setDefaultStyle("glass");
+    this.itemDescrWindow = new Container();
+    itemDescrLabel = new Label("ROBOTFINDSKITTEN");
+    itemDescrWindow.addChild(itemDescrLabel);
+        int winResolutionHeight = app.getCamera().getHeight();
+        int winResolutionWidth = app.getCamera().getWidth();
+        float topPercentPosition=0.99f;
+        float leftPercentPosition=0.01f;
+        int topLocation = Math.round(topPercentPosition*winResolutionHeight);
+        int leftLocation = Math.round(leftPercentPosition*winResolutionHeight);
+        itemDescrWindow.setLocalTranslation(leftLocation, topLocation, 0); 
+    
     System.out.println("Initialize");
     this.basicSetLight();
     this.setScene();
     this.setCamera();
     this.registerInput();
     this.justInitialized = true;
+    
+    
+    
 } 
 @Override
 public void setEnabled(boolean enabled) {
@@ -92,6 +121,11 @@ public void setEnabled(boolean enabled) {
             this.rootNode.attachChild(shadowNode);
             System.out.println("Attaching sun");
             rootNode.addLight(this.sun); rootNode.addLight(this.al);
+            
+            System.out.println("Attaching interface");
+            Node gui = app.getGuiNode();
+            gui.attachChild(itemDescrWindow);
+            
             justInitialized = false;
         } else {
             
@@ -115,6 +149,8 @@ public void setEnabled(boolean enabled) {
         System.out.println("------Shuting down scene. Removing shadowNode------");
         //rootNode.detachAllChildren();
         rootNode.detachChild(shadowNode);
+        System.out.println("------Shuting down scene. Removing interface------");
+        itemDescrWindow.removeFromParent(); 
         }
       }
 }
@@ -228,8 +264,11 @@ public void setEnabled(boolean enabled) {
         //get the camera direction. It's OK to normalize it. 
         //Get the projection of this vector onto the base plane of scene (xOy for this scene). Normalize result
         //move along this vector
+        
         AllGameResources.direction.set(app.getCamera().getDirection()).normalizeLocal();
         Vector3f planeNormal = new Vector3f(0, 1, 0);
+        boolean kittenFound = false;
+        
         if (name.equals("moveForward")) {
             Boolean collisionTestPassed = false;
                 //direction.multLocal(5 * tpf);
@@ -262,7 +301,15 @@ public void setEnabled(boolean enabled) {
                   System.out.println("What was hit? " + closest.getGeometry().getName() );
                     System.out.println("identifier: "+value1);
                   */
-                    System.out.println(RenderHelpers.getItemDescriptionById(value1));
+                    //display item in interface
+                    ItemSummaryResult r = RenderHelpers.getItemDescriptionClassById(value1);
+                    String value2 = r.message;
+                    kittenFound = r.isKitten;
+                    if ( true || (previouslyHitItem == null) || (previouslyHitItem!=value1) ) {
+                        System.out.println(value2);
+                        itemDescrLabel.setText(value2);
+                        //previouslyHitItem = value1;
+                    }
                   /*  
                   System.out.println("Where was it hit? " + closest.getContactPoint() );
                   System.out.println("Distance? " + closest.getDistance() );
@@ -272,6 +319,7 @@ public void setEnabled(boolean enabled) {
                 } else {
                   // how to react when no collision occured
                   //collisionTestPassed = false;
+                  //previouslyHitItem = null;
                 }
             }
             if (collisionTestPassed == true) {
@@ -314,7 +362,15 @@ public void setEnabled(boolean enabled) {
                   System.out.println("What was hit? " + closest.getGeometry().getName() );
                     System.out.println("identifier: "+value1);
                   */
-                    System.out.println(RenderHelpers.getItemDescriptionById(value1));
+                  ItemSummaryResult r = RenderHelpers.getItemDescriptionClassById(value1);
+                    String value2 = r.message;
+                    kittenFound = r.isKitten;
+                    
+                    if ( true || (previouslyHitItem == null) || (previouslyHitItem!=value1) ) {
+                        System.out.println(value2);
+                        itemDescrLabel.setText(value2);
+                        //previouslyHitItem = value1;
+                    }
                   /*  
                   System.out.println("Where was it hit? " + closest.getContactPoint() );
                   System.out.println("Distance? " + closest.getDistance() );
@@ -324,6 +380,7 @@ public void setEnabled(boolean enabled) {
                 } else {
                   // how to react when no collision occured
                   //collisionTestPassed = false;
+                  //previouslyHitItem = null;
                 }
             }
             
@@ -367,7 +424,17 @@ public void setEnabled(boolean enabled) {
                   System.out.println("What was hit? " + closest.getGeometry().getName() );
                     System.out.println("identifier: "+value1);
                   */  
-                    System.out.println(RenderHelpers.getItemDescriptionById(value1));
+                    //display here item in iface
+                    //String value2 = RenderHelpers.getItemDescriptionById(value1);
+                    ItemSummaryResult r = RenderHelpers.getItemDescriptionClassById(value1);
+                    String value2 = r.message;
+                    kittenFound = r.isKitten;
+                    
+                    if ( true || (previouslyHitItem == null) || (previouslyHitItem!=value1) ) {
+                        System.out.println(value2);
+                        itemDescrLabel.setText(value2);
+                        //previouslyHitItem = value1;
+                    }
                   /*  
                   System.out.println("Where was it hit? " + closest.getContactPoint() );
                   System.out.println("Distance? " + closest.getDistance() );
@@ -377,6 +444,8 @@ public void setEnabled(boolean enabled) {
                 } else {
                   // how to react when no collision occured
                   //collisionTestPassed = false;
+                  
+                  //previouslyHitItem = null;
                 }
             }
             
@@ -420,7 +489,16 @@ public void setEnabled(boolean enabled) {
                   System.out.println("What was hit? " + closest.getGeometry().getName() );
                     System.out.println("identifier: "+value1);
                   */
-                    System.out.println(RenderHelpers.getItemDescriptionById(value1));
+                    //String value2 = RenderHelpers.getItemDescriptionById(value1);                    
+                    ItemSummaryResult r = RenderHelpers.getItemDescriptionClassById(value1);
+                    String value2 = r.message;
+                    kittenFound = r.isKitten;
+                    
+                    if ( true || (previouslyHitItem == null) || (previouslyHitItem!=value1) ) {
+                        System.out.println(value2);
+                        itemDescrLabel.setText(value2);
+                        //previouslyHitItem = value1;
+                    }
                   /*  
                   System.out.println("Where was it hit? " + closest.getContactPoint() );
                   System.out.println("Distance? " + closest.getDistance() );
@@ -430,6 +508,7 @@ public void setEnabled(boolean enabled) {
                 } else {
                   // how to react when no collision occured
                   //collisionTestPassed = false;
+                  //previouslyHitItem = null;
                 }
             }
             
@@ -456,6 +535,11 @@ public void setEnabled(boolean enabled) {
             //playerNode.rotate(-0.5f*value, 0, 0);
             AllGameResources.myCam.rotate(-0.5f*value, 0, 0);
         }
+        
+        if (kittenFound) {
+            System.out.println("!!! KITTEN FOUND !!!");
+        }
+        
     }
 
     public void onAction(String name, boolean isPressed, float tpf) {

@@ -164,4 +164,15 @@ public class RenderHelpers {
         }
         return itmLine;
     }
+    
+    public static ItemSummaryResult getItemDescriptionClassById(String Id) {
+        ItemSummaryResult summaryResult = new ItemSummaryResult();
+        for (GameFieldItem object : AllParams.GameLogicArray) {
+            if (object.collisionID.equals(Id)) { 
+                summaryResult.isKitten = object instanceof processing.KI;
+                summaryResult.message = object.message;
+                return summaryResult; }
+        }
+        return summaryResult;
+    }
 }

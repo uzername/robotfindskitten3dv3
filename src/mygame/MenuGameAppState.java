@@ -91,7 +91,7 @@ public class MenuGameAppState extends AbstractAppState {
         float topPercentPosition=0.75f;
         float leftPercentPosition=0.10f;
         int topLocation = Math.round(topPercentPosition*winResolutionHeight);
-        int leftLocation = Math.round(leftPercentPosition*winResolutionHeight);
+        int leftLocation = Math.round(leftPercentPosition*winResolutionWidth);
         myWindow.setLocalTranslation(leftLocation, topLocation, 0);
         
         this.continueBtnRequired = false;
