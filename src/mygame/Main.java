@@ -53,6 +53,9 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
      public MainGameAppState state;
      public MenuGameAppState state2;
      public Boolean FPSdisplayed;
+     //external appstates may request appstate change, but switching states is performed only here
+     //see line 111 of MenuGameAppstate. 
+     public Boolean requestSwitchToNewGame=false;
      
     public static void main(String[] args) {
         Main app = new Main();
@@ -111,6 +114,7 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
         if (state2.isEnabled()) {
         inputManager.setCursorVisible(true); 
         } 
+        
     }
 
     @Override

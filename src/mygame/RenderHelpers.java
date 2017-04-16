@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package mygame;
 
 import com.jme3.asset.AssetManager;
@@ -174,5 +170,25 @@ public class RenderHelpers {
                 return summaryResult; }
         }
         return summaryResult;
+    }
+    /**
+     * check whether it is valid to place itmNumberInp items on field with given dimensions
+     * @see AllParams
+     * @param rawDim1Inp - Dim1 of gamefield
+     * @param rawDim2Inp - Dim2 of gamefield
+     * @param itmNumberInp - number of items
+     * @return 
+     */
+    public static Boolean checkParamsConsistency(Double rawDim1Inp, Double rawDim2Inp, Integer itmNumberInp) {
+        if (itmNumberInp < 3) {
+            return false;
+        }
+        Double processedArea = (rawDim1Inp/2.0) * (rawDim2Inp/2.0);
+        if (processedArea.intValue()<=itmNumberInp+1) {
+            //Dirichle rabbit principle
+            return false;
+        }
+        Boolean ret = true;
+        return true;
     }
 }
