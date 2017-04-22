@@ -25,6 +25,7 @@ import com.simsilica.lemur.FillMode;
 import com.simsilica.lemur.GuiGlobals;
 import com.simsilica.lemur.Label;
 import com.simsilica.lemur.TextField;
+import com.simsilica.lemur.component.BorderLayout;
 import com.simsilica.lemur.component.BoxLayout;
 import com.simsilica.lemur.component.IconComponent;
 import com.simsilica.lemur.core.GuiLayout;
@@ -151,7 +152,12 @@ public class MenuGameAppState extends AbstractAppState {
             @Override
             public void execute(Button source) {
                 //processing.AllParams.allFieldDim1 = (processing.AllParams.allFieldDim1/2.0+1.0)*2.0;
+                Double rawDim1BackCopy = rawDim1Back;
                 rawDim1Back = (rawDim1Back/2.0+1.0)*2.0;
+                if (RenderHelpers.checkParamsConsistency(rawDim1Back, rawDim2Back, rawItmNumberBack) == false) {
+                    rawDim1Back = rawDim1BackCopy;
+                    return;
+                }
                 updateAllFieldDim1Fld();
             }            
         });
@@ -161,7 +167,12 @@ public class MenuGameAppState extends AbstractAppState {
             @Override
             public void execute(Button source) {
                 //processing.AllParams.allFieldDim1 = (processing.AllParams.allFieldDim1/2.0-1.0)*2.0;
+                Double rawDim1BackCopy = rawDim1Back;
                 rawDim1Back = (rawDim1Back/2.0-1.0)*2.0;
+                if (RenderHelpers.checkParamsConsistency(rawDim1Back, rawDim2Back, rawItmNumberBack) == false) {
+                    rawDim1Back = rawDim1BackCopy;
+                    return;
+                }
                 updateAllFieldDim1Fld();
             }            
         });
@@ -180,7 +191,12 @@ public class MenuGameAppState extends AbstractAppState {
         ubutton2.addCommands(Button.ButtonAction.Down, new Command<Button>(){
             @Override
             public void execute(Button source) {
+                Double rawDim2BackCopy = rawDim2Back;
                 rawDim2Back = (rawDim2Back/2.0+1.0)*2.0;
+                if (RenderHelpers.checkParamsConsistency(rawDim1Back, rawDim2Back, rawItmNumberBack) == false) {
+                    rawDim2Back = rawDim2BackCopy;
+                    return;
+                }
                 updateAllFieldDim2Fld();
             }            
         });
@@ -189,7 +205,12 @@ public class MenuGameAppState extends AbstractAppState {
         dbutton2.addCommands(Button.ButtonAction.Down, new Command<Button>(){
             @Override
             public void execute(Button source) {
+                Double rawDim2BackCopy = rawDim2Back;
                 rawDim2Back = (rawDim2Back/2.0-1.0)*2.0;
+                if (RenderHelpers.checkParamsConsistency(rawDim1Back, rawDim2Back, rawItmNumberBack) == false) {
+                    rawDim2Back = rawDim2BackCopy;
+                    return;
+                }
                 updateAllFieldDim2Fld();
             }            
         });
@@ -206,6 +227,9 @@ public class MenuGameAppState extends AbstractAppState {
             @Override
             public void execute(Button source) {
                 //processing.AllParams.totalNumberOfItems = processing.AllParams.totalNumberOfItems+1;
+                if (RenderHelpers.checkParamsConsistency(rawDim1Back, rawDim2Back, rawItmNumberBack+1) == false) {
+                    return;
+                }
                 rawItmNumberBack+=1;
                 updateItmNumberFld();
             }            
@@ -216,6 +240,9 @@ public class MenuGameAppState extends AbstractAppState {
             @Override
             public void execute(Button source) {
                 //processing.AllParams.totalNumberOfItems = processing.AllParams.totalNumberOfItems-1;
+                if (RenderHelpers.checkParamsConsistency(rawDim1Back, rawDim2Back, rawItmNumberBack-1) == false) {
+                    return;
+                }
                 rawItmNumberBack-=1;
                 updateItmNumberFld();
             }            
@@ -233,8 +260,12 @@ public class MenuGameAppState extends AbstractAppState {
             
         });
         saveOptionsBtn = new com.simsilica.lemur.Button("Save");
+        
+        closeOptionsBtn.setPreferredSize(new Vector3f(70f, closeOptionsBtn.getPreferredSize().y, closeOptionsBtn.getPreferredSize().z));
+        saveOptionsBtn.setPreferredSize(new Vector3f(70f, saveOptionsBtn.getPreferredSize().y, saveOptionsBtn.getPreferredSize().z));
         optWindow.addChild(closeOptionsBtn);
-        optWindow.addChild(saveOptionsBtn, 1);
+        optWindow.addChild(saveOptionsBtn,1);
+        
         
         this.continueBtnRequired = false;
         this.justInitialized = true;
