@@ -13,6 +13,10 @@ public class AllParams {
     public static Integer totalNumberOfItems = 10;
     public static String DataFilePath="itmbase2.xml";
     public static ArrayList<GameFieldItem> GameLogicArray;
+    //measured in the same units as GameLogicArray. 
+    public static Integer mainactorPositionInsightX;
+    public static Integer mainactorPositionInsightY;
+    
     public static ArrayList<String> LoadedNKIs;
     //assume that all non-kitten items should be different. 
     //'true' means that there should not be a single NKI which is identified by different models on screen

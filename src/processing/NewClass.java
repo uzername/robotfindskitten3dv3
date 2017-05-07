@@ -76,7 +76,7 @@ public class NewClass {
     }
     
     /**
-     * Randomly fill the GameLogicArray with values. 
+     * Randomly fill the GameLogicArray with values. Also may give some insight about initial player location
      * @param inp_totalNumberOfItems - total number of entities on field. The kitten is included here too.
      */
     public void fillNKIField(Integer inp_totalNumberOfItems) {
@@ -114,6 +114,11 @@ public class NewClass {
             Integer choosenXPosition = AvailPositionsX.get(choosenXIndex);
             Integer choosenYPosition = AvailPositionsY.get(choosenYIndex);
             AllParams.GameLogicArray.add( new KI(choosenXPosition, choosenYPosition, "You have found kitten!") );
+            AvailPositionsX.remove(choosenXPosition);
+            AvailPositionsY.remove(choosenYPosition);
+            
+            AllParams.mainactorPositionInsightX = AvailPositionsX.get( showRandomInteger(0, AvailPositionsX.size()-1, aRandom) );
+            AllParams.mainactorPositionInsightY = AvailPositionsY.get( showRandomInteger(0, AvailPositionsY.size()-1, aRandom) );
             AvailPositionsX.remove(choosenXPosition);
             AvailPositionsY.remove(choosenYPosition);
     }

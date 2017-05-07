@@ -276,6 +276,10 @@ public void setEnabled(boolean enabled) {
         addedNode5.setLocalTranslation(AllParams.allFieldDim1.floatValue(), 0.0f, -0.0f);
         shadowNode.attachChild(addedNode5);
         */
+        
+        //place player on field
+        AllGameResources.playerNode.setLocalTranslation(AllParams.mainactorPositionInsightX.floatValue(), 0.0f, -AllParams.mainactorPositionInsightY.floatValue());
+        
    }
 
         public void onAnalog(String name, float value, float tpf) {
