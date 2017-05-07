@@ -60,6 +60,7 @@ public class MenuGameAppState extends AbstractAppState {
     private Button continueBtn;
     private boolean continueBtnRequired;
     
+    private Button newGameBtn;
     //backend of AllParams values
     private Double rawDim1Back;
     private Double rawDim2Back;
@@ -97,13 +98,16 @@ public class MenuGameAppState extends AbstractAppState {
          this.myWindow = new Container();
          // Add some elements
         myWindow.addChild(new Label("ROBOTFINDSKITTEN"));
+        /*
         Button clickMe = myWindow.addChild(new Button("New Game"));
         clickMe.addClickCommands(new Command<Button>() {
             @Override
             public void execute( Button source ) {
-                System.out.println("The world is yours.");
+                System.out.println("===Start game from the very beginning===");                
             }
         });
+        */
+        newGameBtn = myWindow.addChild(new ActionButton(new CallMethodAction("New Game", app, "startOverMainGame")));
         
         Button optionsBtn = myWindow.addChild(new Button("Options"));
         optionsBtn.addClickCommands(new Command<Button>() {
@@ -260,6 +264,18 @@ public class MenuGameAppState extends AbstractAppState {
             
         });
         saveOptionsBtn = new com.simsilica.lemur.Button("Save");
+        saveOptionsBtn.addClickCommands(new Command<Button>() {
+            @Override
+            public void execute(Button source) {
+                     AllParams.allFieldDim1 = rawDim1Back;
+                     AllParams.allFieldDim2 = rawDim2Back;
+                
+                  optWindow.removeFromParent();
+                  optionsWndDisplayed = false;
+                  ((Main) (app)).applyNewParam();
+            }
+            
+        });
         
         closeOptionsBtn.setPreferredSize(new Vector3f(70f, closeOptionsBtn.getPreferredSize().y, closeOptionsBtn.getPreferredSize().z));
         saveOptionsBtn.setPreferredSize(new Vector3f(70f, saveOptionsBtn.getPreferredSize().y, saveOptionsBtn.getPreferredSize().z));
@@ -281,6 +297,7 @@ public class MenuGameAppState extends AbstractAppState {
                 //it is being shown only on the second and further menu displayings
                 //value justInitialized==true if not changed in outer routine
                 if ((continueBtnRequired == true)) {
+                    //do not switch states directly, instead delegate it to Main file
                     continueBtn = myWindow.addChild(new ActionButton(new CallMethodAction("Continue Game", app, "switchStateToMainGame")));
                     continueBtnRequired = false;
                 }

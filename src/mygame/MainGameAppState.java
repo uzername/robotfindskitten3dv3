@@ -194,7 +194,13 @@ public void setEnabled(boolean enabled) {
         shadowNode.attachChild(AllGameResources.playerNode);
         
         //append floor
-        Quad plain = new Quad(processing.AllParams.allFieldDim1.floatValue(), processing.AllParams.allFieldDim2.floatValue());
+        attachFloor();
+        
+        placeObjects();
+    }
+    
+   public void attachFloor() {
+       Quad plain = new Quad(processing.AllParams.allFieldDim1.floatValue(), processing.AllParams.allFieldDim2.floatValue());
         plain.scaleTextureCoordinates(new Vector2f(processing.AllParams.allFieldDim1.floatValue()/2.0f, processing.AllParams.allFieldDim2.floatValue()/2.0f));
         Geometry floor = new Geometry("floor", plain);
         Material matFloor = (assetManager.loadMaterial("Materials/plainMaterial.j3m"));
@@ -205,9 +211,22 @@ public void setEnabled(boolean enabled) {
         floor.setMaterial(matFloor);
         floor.rotate(-new Double(Math.PI/2.0).floatValue(), 0.0f, 0.0f);        
         shadowNode.attachChild(floor);
-        
-        placeObjects();
-    }
+   }
+   public void removeFloor() throws Exception {
+       int res = shadowNode.detachChildNamed("floor");
+       if (res==-1) {
+           throw new Exception("floor not found");
+       }
+   }
+   
+   //removing objects from scene
+   public void removeObjects() {
+       
+       for (Map.Entry<BoundingBox, String> entry : CollidingBoxes.entrySet()) {
+           shadowNode.detachChildNamed(entry.getValue());
+       }
+   }
+   
    public void placeObjects() {
        RenderHelpers.assetManager = assetManager;
        CollidingBoxes = new HashMap<>();

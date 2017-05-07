@@ -30,6 +30,8 @@ import de.lessvoid.nifty.screen.ScreenController;
 
 import com.simsilica.lemur.GuiGlobals;
 import com.simsilica.lemur.style.BaseStyles;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import processing.AllParams;
 import processing.NewClass;
 /**
@@ -146,7 +148,7 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
             this.setDisplayStatView(FPSdisplayed);
         }
     }
-    
+    //called from MenuGameAppState
     public void switchStateToMainGame() {
         
             Boolean mainStateActivity = state.isEnabled();
@@ -157,8 +159,28 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
         
     }
 
-    
-   
+    public void startOverMainGame() {
+        System.out.println("Starting game from beginning");
+        //clean up all of the collision shapes
+        //remove data from structures
+        applyNewParam();
+        //and start everything from very beginning
+    }
+    public void applyNewParam() {
+        System.out.println("...Applying parameters...");
+        
+         try {
+             state.removeFloor();
+         } catch (Exception ex) {
+             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+         }
+        state.attachFloor();
+        state.removeObjects();
+        mainGameAlgorithmRoutine.fillNKIField(AllParams.totalNumberOfItems);
+        System.out.println("GameLogicArray(after reinit)="+AllParams.GameLogicArray.toString());
+        state.placeObjects();
+        switchStateToMainGame();
+    }
 
 
 }
