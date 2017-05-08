@@ -54,6 +54,8 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
      public NewClass mainGameAlgorithmRoutine;
      public MainGameAppState state;
      public MenuGameAppState state2;
+     public FindingKittenGameAppState stateKitten;
+     
      public Boolean FPSdisplayed;
      //external appstates may request appstate change, but switching states is performed only here
      //see line 111 of MenuGameAppstate. 
