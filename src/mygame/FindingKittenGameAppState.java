@@ -5,6 +5,9 @@
  */
 package mygame;
 
+import com.jme3.animation.AnimChannel;
+import com.jme3.animation.AnimControl;
+import com.jme3.animation.LoopMode;
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AbstractAppState;
@@ -27,12 +30,17 @@ public class FindingKittenGameAppState extends AbstractAppState{
     public AmbientLight al;
     public DirectionalLight sun;
     
+    public Boolean justInitialized;
+    
     private SimpleApplication app;
     private AssetManager assetManager;
     private Node rootNode;
     private Node shadowNode;
     private Spatial kittenNode;
     private CameraNode myCam;
+    
+      private AnimChannel channelAnim;
+      private AnimControl controlAnim;
     
     @Override
 public void update(float tpf) {
@@ -55,20 +63,32 @@ public void initialize(AppStateManager stateManager, Application app) {
     this.basicSetLight();
     this.setScene();
     this.setCamera();
+    
+    this.justInitialized = true;
 }
 @Override
 public void setEnabled(boolean enabled) {
     // Pause and unpause
     super.setEnabled(enabled);
     if (enabled) {
+        if (justInitialized == false) {
         rootNode.addLight(this.sun); rootNode.addLight(this.al);
         this.rootNode.attachChild(shadowNode);
         
+        //run kitten animation
+        channelAnim.setAnim("Action");
+        channelAnim.setLoopMode(LoopMode.Cycle);
+        channelAnim.setSpeed(1f);
+        
+        justInitialized = false;
+        }
     } else {
+        if (justInitialized == false){
         //removing light separately
         rootNode.removeLight(al); rootNode.removeLight(sun);
-        
-        rootNode.detachChild(shadowNode);
+            //should remove camera too
+            rootNode.detachChild(shadowNode);
+        }
     }
 }
 
@@ -89,7 +109,7 @@ private void basicSetLight() {
         //AllGameResources.playerNode.attachChild(AllGameResources.myCam);
         //why not to add cam directly to shadownode?
        this.shadowNode.attachChild(myCam);
-       myCam.setLocalTranslation(new Vector3f(-3.5f, 2.5f, 0));
+       myCam.setLocalTranslation(new Vector3f(-3.5f*1.5f, 2.5f*1.5f, 0));
        myCam.lookAt(Vector3f.ZERO, Vector3f.UNIT_Y);
        //myCam.lookAt(AllGameResources.playerNode.getLocalTranslation(), Vector3f.UNIT_Y);
       
@@ -97,8 +117,19 @@ private void basicSetLight() {
     }
 
  private void setScene() {
-     kittenNode = this.assetManager.loadModel("Models/onlyKitty.blend");
-     rootNode.attachChild(kittenNode);
+     kittenNode = this.assetManager.loadModel("Models/onlyKitty.j3o");
+     
+     //controlAnim.addListener(this);
+     //channelAnim = controlAnim.createChannel();
+     
+             //controlAnim = kittenNode.getControl(AnimControl.class);        
+        controlAnim = ((Node)(((Node) ( ((Node)(  ((Node) kittenNode).getChild(0) )).getChild(0) )).getChild(0))).getControl(AnimControl.class);
+        for (String anim : controlAnim.getAnimationNames()) {
+            System.out.println(anim);
+        }
+        channelAnim = controlAnim.createChannel();
+        
+     shadowNode.attachChild(kittenNode);
  }
 
 }

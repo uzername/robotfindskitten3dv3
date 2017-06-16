@@ -561,6 +561,7 @@ public void setEnabled(boolean enabled) {
         
         if (kittenFound) {
             System.out.println("!!! KITTEN FOUND !!!");
+            ((Main)app).activateKittenState();
         }
         
     }

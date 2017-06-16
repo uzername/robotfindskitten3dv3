@@ -60,6 +60,7 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
      //external appstates may request appstate change, but switching states is performed only here
      //see line 111 of MenuGameAppstate. 
      public Boolean requestSwitchToNewGame=false;
+     public Boolean escKeyAllowed = false; //is it ok to switch app states by esc key while we are in main menu?
      
     public static void main(String[] args) {
         Main app = new Main();
@@ -103,9 +104,13 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
         //stateManager.attach(state);
         state2 = new MenuGameAppState();
         state2.initialize(stateManager, this);
+        
+        stateKitten = new FindingKittenGameAppState();
+        stateKitten.initialize(stateManager, this);
         //stateManager.attach(state2);
         state.setEnabled(false);
         state2.setEnabled(true);
+        stateKitten.setEnabled(false); stateKitten.justInitialized = false;
         //state2.justInitialized = true;
     }
 
@@ -118,6 +123,9 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
         if (state2.isEnabled()) {
         inputManager.setCursorVisible(true); 
         } 
+        if (stateKitten.isEnabled()) {
+        inputManager.setCursorVisible(false);
+        }
         
     }
 
@@ -135,14 +143,24 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
     public void onAnalog(String name, float value, float tpf) {
         
     }
-
+    //key binding processor. Seems like key bingings are global and they are shared among all the appstates
     public void onAction(String name, boolean isPressed, float tpf) {
-        if (name.equals("switchMenuStates") && isPressed) {
+        if (name.equals("switchMenuStates") && isPressed ) {
+            Boolean findingKittenStateActivity = stateKitten.isEnabled();
             Boolean mainStateActivity = state.isEnabled();
             Boolean menuStateActivity = state2.isEnabled();
-            state.setEnabled(!(mainStateActivity.booleanValue()) );
-            state2.setEnabled(!(menuStateActivity.booleanValue()) );
-            System.out.println("State Changed");
+            if (findingKittenStateActivity == false) {
+                if (escKeyAllowed) {
+                    state.setEnabled(!(mainStateActivity.booleanValue()) );
+                    state2.setEnabled(!(menuStateActivity.booleanValue()) );
+                    System.out.println("State Changed::no kitty"); 
+                } else {
+                    System.out.println("State NOT Changed::no kitty");
+                }
+            } else {
+                stateKitten.setEnabled(false);
+                state2.setEnabled(true);
+            }
         }
         if (name.equals("switchFPSDisplay")&&isPressed) {
             FPSdisplayed = !(FPSdisplayed);
@@ -152,16 +170,32 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
     }
     //called from MenuGameAppState
     public void switchStateToMainGame() {
-        
+            
+            Boolean findingKittenStateActivity = stateKitten.isEnabled();
             Boolean mainStateActivity = state.isEnabled();
             Boolean menuStateActivity = state2.isEnabled();
+            if (findingKittenStateActivity == false) { //kitten has not been found and displayed yet, switch menu
             state.setEnabled(!(mainStateActivity.booleanValue()) );
             state2.setEnabled(!(menuStateActivity.booleanValue()) );
+            } else { //kitten has been found, show menu on ESC. It is assumed that main state is disabled
+                
+                stateKitten.setEnabled(false);
+                state2.setEnabled(true);
+            }
             System.out.println("State Changed");
+            
+    }
+    
+    public void activateKittenState() {
+        this.escKeyAllowed = false;
+        state.setEnabled(false);
+        //state2.setEnabled(false);
+        stateKitten.setEnabled(true);
         
     }
-
+    
     public void startOverMainGame() {
+        this.escKeyAllowed = true;
         System.out.println("Starting game from beginning");
         //clean up all of the collision shapes
         //remove data from structures
