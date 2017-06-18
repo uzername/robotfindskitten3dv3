@@ -61,6 +61,7 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
      //see line 111 of MenuGameAppstate. 
      public Boolean requestSwitchToNewGame=false;
      public Boolean escKeyAllowed = false; //is it ok to switch app states by esc key while we are in main menu?
+                                           //also forbid appstate changing from main menu
      
     public static void main(String[] args) {
         Main app = new Main();
@@ -124,7 +125,11 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
         inputManager.setCursorVisible(true); 
         } 
         if (stateKitten.isEnabled()) {
-        inputManager.setCursorVisible(false);
+            inputManager.setCursorVisible(false);
+            if (stateKitten.robotNode.getWorldTranslation().z>=-0.5) {
+                stateKitten.robotNode.move(0.0f, 0.0f, -0.0002f); 
+            }
+            
         }
         
     }
@@ -155,7 +160,7 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
                     state2.setEnabled(!(menuStateActivity.booleanValue()) );
                     System.out.println("State Changed::no kitty"); 
                 } else {
-                    System.out.println("State NOT Changed::no kitty");
+                    System.out.println("State NOT Changed::kitty");
                 }
             } else {
                 stateKitten.setEnabled(false);
@@ -170,7 +175,11 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
     }
     //called from MenuGameAppState
     public void switchStateToMainGame() {
+            if (escKeyAllowed == false) { 
+                System.out.println( "State NOT Changed::kitty::(menu action)" );
+                return; 
             
+            }
             Boolean findingKittenStateActivity = stateKitten.isEnabled();
             Boolean mainStateActivity = state.isEnabled();
             Boolean menuStateActivity = state2.isEnabled();

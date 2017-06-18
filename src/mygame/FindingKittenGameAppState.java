@@ -15,12 +15,15 @@ import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
 import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
+import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.CameraNode;
+import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.control.CameraControl;
+import com.jme3.scene.shape.Box;
 
 /**
  * This app state is being performed when playing final video
@@ -37,6 +40,9 @@ public class FindingKittenGameAppState extends AbstractAppState{
     private Node rootNode;
     private Node shadowNode;
     private Spatial kittenNode;
+    
+    public Node robotNode;
+    
     private CameraNode myCam;
     
       private AnimChannel channelAnim;
@@ -44,7 +50,11 @@ public class FindingKittenGameAppState extends AbstractAppState{
     
     @Override
 public void update(float tpf) {
+    super.update(tpf);
     app.getInputManager().setCursorVisible(false);
+        //unfortunatelly this code is not working from here. But it works from Main.java class
+        //robotNode.move(0.0f, 0.5f, 1.3f); 
+    
 }
 @Override
 public void cleanup() {
@@ -80,6 +90,9 @@ public void setEnabled(boolean enabled) {
         channelAnim.setLoopMode(LoopMode.Cycle);
         channelAnim.setSpeed(1f);
         
+        System.out.println(kittenNode.getWorldTranslation().toString());
+        System.out.println(robotNode.getWorldTranslation().toString());
+        
         justInitialized = false;
         }
     } else {
@@ -109,7 +122,7 @@ private void basicSetLight() {
         //AllGameResources.playerNode.attachChild(AllGameResources.myCam);
         //why not to add cam directly to shadownode?
        this.shadowNode.attachChild(myCam);
-       myCam.setLocalTranslation(new Vector3f(-3.5f*1.5f, 2.5f*1.5f, 0));
+       myCam.setLocalTranslation(new Vector3f(-15.5f, 4.5f, -8.5f));
        myCam.lookAt(Vector3f.ZERO, Vector3f.UNIT_Y);
        //myCam.lookAt(AllGameResources.playerNode.getLocalTranslation(), Vector3f.UNIT_Y);
       
@@ -118,6 +131,24 @@ private void basicSetLight() {
 
  private void setScene() {
      kittenNode = this.assetManager.loadModel("Models/onlyKitty.j3o");
+     kittenNode.setLocalTranslation(5.0f, -0.05f, -3.5f);
+     
+     Box robotBox = new Box(0.5f, 0.5f, 0.5f);       
+     Geometry robotGeometry = new Geometry("robot actor", robotBox);
+     //robotGeometry.setLocalTranslation(2.0f, 0, 0);
+     
+     Material mat2 = new Material(this.assetManager, "Common/MatDefs/Light/Lighting.j3md");
+        mat2.setBoolean("UseMaterialColors",true);
+        mat2.setColor("Diffuse",  ColorRGBA.Green);
+        mat2.setColor("Ambient",  ColorRGBA.Green);
+        mat2.setColor("Specular", ColorRGBA.Blue); 
+    
+     
+        robotNode = new Node("robot scene node");
+        robotGeometry.setMaterial(mat2);
+        robotNode.attachChild(robotGeometry);
+        robotNode.setLocalTranslation(5.5f,0.0f,10.0f);
+        shadowNode.attachChild(robotNode);
      
      //controlAnim.addListener(this);
      //channelAnim = controlAnim.createChannel();
