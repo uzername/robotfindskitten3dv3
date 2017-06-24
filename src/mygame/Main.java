@@ -127,7 +127,7 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
         if (stateKitten.isEnabled()) {
             inputManager.setCursorVisible(false);
             if (stateKitten.robotNode.getWorldTranslation().z>=-0.5) {
-                stateKitten.robotNode.move(0.0f, 0.0f, -0.0002f); 
+                stateKitten.robotNode.move(0.0f, 0.0f, -0.0004f); 
             }
             
         }

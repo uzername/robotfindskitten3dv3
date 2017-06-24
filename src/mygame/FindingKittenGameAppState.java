@@ -43,6 +43,8 @@ public class FindingKittenGameAppState extends AbstractAppState{
     
     public Node robotNode;
     
+    public Spatial heartNode;
+    
     private CameraNode myCam;
     
       private AnimChannel channelAnim;
@@ -137,6 +139,16 @@ private void basicSetLight() {
      Geometry robotGeometry = new Geometry("robot actor", robotBox);
      //robotGeometry.setLocalTranslation(2.0f, 0, 0);
      
+     heartNode = this.assetManager.loadModel("Models/heart_lowpoly.j3o");
+     heartNode.rotate(0.0f, new Double(Math.PI/2.0).floatValue(), 0.0f);
+     heartNode.setLocalTranslation(10.5f, -0.05f, -1.25f);
+     Material matRed = new Material(this.assetManager, "Common/MatDefs/Light/Lighting.j3md");
+        matRed.setBoolean("UseMaterialColors",true);
+        matRed.setColor("Diffuse",  ColorRGBA.Red);
+        matRed.setColor("Ambient",  ColorRGBA.Red);
+        matRed.setColor("Specular", ColorRGBA.Pink); 
+     heartNode.setMaterial(matRed);
+     
      Material mat2 = new Material(this.assetManager, "Common/MatDefs/Light/Lighting.j3md");
         mat2.setBoolean("UseMaterialColors",true);
         mat2.setColor("Diffuse",  ColorRGBA.Green);
@@ -161,6 +173,7 @@ private void basicSetLight() {
         channelAnim = controlAnim.createChannel();
         
      shadowNode.attachChild(kittenNode);
+     shadowNode.attachChild(heartNode);
  }
 
 }
