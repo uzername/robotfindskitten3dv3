@@ -6,7 +6,6 @@ import com.jme3.light.DirectionalLight;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector2f;
-import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Box;
@@ -23,6 +22,7 @@ import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
+import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.screen.Screen;
@@ -62,7 +62,9 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
      public Boolean requestSwitchToNewGame=false;
      public Boolean escKeyAllowed = false; //is it ok to switch app states by esc key while we are in main menu?
                                            //also forbid appstate changing from main menu
-     
+     //final scene animation parameters
+     private float rfk_heartAppearingDistance = 0.1f;
+     private float rfk_robotDestinationZ = -0.5f;
     public static void main(String[] args) {
         Main app = new Main();
         app.start();
@@ -125,9 +127,21 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
         inputManager.setCursorVisible(true); 
         } 
         if (stateKitten.isEnabled()) {
-            inputManager.setCursorVisible(false);
-            if (stateKitten.robotNode.getWorldTranslation().z>=-0.5) {
+            inputManager.setCursorVisible(false);            
+            //scale heart at some point
+            if (stateKitten.robotNode.getWorldTranslation().z<=rfk_heartAppearingDistance) {
+                //in case when 'heart' object is already shown do nothing
+                stateKitten.showHeart();
+                stateKitten.showRfkText();
+                
+            }
+            //move robot node towards the kitten
+            if (stateKitten.robotNode.getWorldTranslation().z>=rfk_robotDestinationZ) {
                 stateKitten.robotNode.move(0.0f, 0.0f, -0.0004f); 
+            }
+            if (stateKitten.myCam.getLocalTranslation().z<=-7.5f) {
+                stateKitten.myCam.move(0.0f, 0.0f, +0.0001f);
+                //stateKitten.myCam.lookAt(stateKitten.kittenNode.getLocalTranslation(), Vector3f.ZERO);
             }
             
         }
@@ -199,6 +213,7 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
         this.escKeyAllowed = false;
         state.setEnabled(false);
         //state2.setEnabled(false);
+        stateKitten.resetScenePositions();
         stateKitten.setEnabled(true);
         
     }
