@@ -184,10 +184,11 @@ public void setEnabled(boolean enabled) {
         AllGameResources.player2 = new Geometry("green cube", b);
         AllGameResources.player2.setLocalTranslation(0.0f, 0.5f, 0.0f);        
         Material mat2 = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
-        mat2.setBoolean("UseMaterialColors",true);
-        mat2.setColor("Diffuse",  ColorRGBA.Green);
-        mat2.setColor("Ambient",  ColorRGBA.Green);
-        mat2.setColor("Specular", ColorRGBA.Blue); 
+        //mat2.setBoolean("UseMaterialColors",true);
+        //mat2.setColor("Diffuse",  ColorRGBA.Green);
+        //mat2.setColor("Ambient",  ColorRGBA.Green);
+        //mat2.setColor("Specular", ColorRGBA.Blue); 
+        mat2.setTexture("DiffuseMap", assetManager.loadTexture("Textures/robotGeneric.png"));
         AllGameResources.player2.setMaterial(mat2);
         AllGameResources.playerNode = new Node("player");
         AllGameResources.playerNode.attachChild(AllGameResources.player2);
@@ -544,10 +545,61 @@ public void setEnabled(boolean enabled) {
             
         }
         if (name.equals("rotateRight") && AllGameResources.rotate) {
+            //check collision here too.
+            Boolean collisionTestPassed = false;
             AllGameResources.playerNode.rotate(0, 0.5f*value, 0);
+            
+            String value1="";
+            for (Map.Entry<BoundingBox, String> entry : CollidingBoxes.entrySet()) {
+                BoundingBox singleCollidingBox = entry.getKey();
+                value1 = entry.getValue();                
+                CollisionResults results = new CollisionResults();
+                AllGameResources.playerNode.collideWith(singleCollidingBox, results);
+                // Use the results
+                if (results.size() > 0) {
+                  
+                  collisionTestPassed = true;
+                } else {
+                  // how to react when no collision occured
+                  //collisionTestPassed = false;
+                  //previouslyHitItem = null;
+                }
+            }
+            
+            if (collisionTestPassed==true) {
+                //backtrace on collision. We have done movement before testing. 
+                AllGameResources.playerNode.rotate(0, -0.5f*value, 0);
+                
+                
+            }
+            
         }
         if (name.equals("rotateLeft") && AllGameResources.rotate) {
             AllGameResources.playerNode.rotate(0, -0.5f*value, 0);
+            Boolean collisionTestPassed = false;
+            
+            String value1="";
+            for (Map.Entry<BoundingBox, String> entry : CollidingBoxes.entrySet()) {
+                BoundingBox singleCollidingBox = entry.getKey();
+                value1 = entry.getValue();                
+                CollisionResults results = new CollisionResults();
+                AllGameResources.playerNode.collideWith(singleCollidingBox, results);
+                // Use the results
+                if (results.size() > 0) {
+                  
+                  collisionTestPassed = true;
+                } else {
+                  // how to react when no collision occured
+                  //collisionTestPassed = false;
+                  //previouslyHitItem = null;
+                }
+            }
+            
+            if (collisionTestPassed==true) {
+                //backtrace on collision. We have done movement before testing. 
+                AllGameResources.playerNode.rotate(0, +0.5f*value, 0);  
+            }
+            
         }
         if (name.equals("rotateUp") && AllGameResources.rotate) {
             // Do not rotate camera node here, instead rotate camera node by value along the axis, 

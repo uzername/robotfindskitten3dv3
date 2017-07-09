@@ -204,11 +204,13 @@ private void basicSetLight() {
      //heartNode.scale(0.05f);
      
      Material mat2 = new Material(this.assetManager, "Common/MatDefs/Light/Lighting.j3md");
+        /*
         mat2.setBoolean("UseMaterialColors",true);
         mat2.setColor("Diffuse",  ColorRGBA.Green);
         mat2.setColor("Ambient",  ColorRGBA.Green);
         mat2.setColor("Specular", ColorRGBA.Blue); 
-    
+        */
+        mat2.setTexture("DiffuseMap", assetManager.loadTexture("Textures/robotGeneric.png"));
      
         robotNode = new Node("robot scene node");
         robotGeometry.setMaterial(mat2);
