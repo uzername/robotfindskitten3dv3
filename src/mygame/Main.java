@@ -67,7 +67,13 @@ public class Main extends SimpleApplication implements AnalogListener, ActionLis
      private float rfk_robotDestinationZ = -0.5f;
     public static void main(String[] args) {
         Main app = new Main();
+        
+        com.jme3.system.AppSettings newSettings = new com.jme3.system.AppSettings(true);
+        newSettings.setSettingsDialogImage("Textures/CoverFinal.png");
+        app.setSettings(newSettings);
+        
         app.start();
+        
     }
 
     @Override
